@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Специальности — YUEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../../assets/img/logo.png" alt="YUEdu" class="logo-img">
+      <span class="logo-text">YUEdu</span>
+    </div>
+    <div class="sidebar-user">
+      <div class="user-avatar-big">ИИ</div>
+      <div class="user-info">
+        <div class="user-name">Иванов Иван</div>
+        <div class="user-role">Администратор</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="../main/" class="nav-item"><i data-lucide="home" class="nav-icon"></i><span class="nav-label">Главная</span></a>
+      <a href="../schedule/" class="nav-item"><i data-lucide="calendar" class="nav-icon"></i><span class="nav-label">Расписание</span></a>
+      <a href="../faculties/" class="nav-item"><i data-lucide="building-2" class="nav-icon"></i><span class="nav-label">Факультеты</span></a>
+      <a href="../departments/" class="nav-item"><i data-lucide="layers" class="nav-icon"></i><span class="nav-label">Кафедры</span></a>
+      <a href="#" class="nav-item active"><i data-lucide="graduation-cap" class="nav-icon"></i><span class="nav-label">Специальности</span></a>
+      <a href="../teachers/" class="nav-item"><i data-lucide="users" class="nav-icon"></i><span class="nav-label">Преподаватели</span></a>
+      <a href="../students/" class="nav-item"><i data-lucide="user-check" class="nav-icon"></i><span class="nav-label">Обучающиеся</span></a>
+            <a href="../certificates/" class="nav-item"><i data-lucide="award" class="nav-icon"></i><span class="nav-label">Сертификаты</span></a>
+      <a href="../grades/" class="nav-item"><i data-lucide="clipboard-list" class="nav-icon"></i><span class="nav-label">Учебные планы</span></a>
+      <a href="../register/" class="nav-item"><i data-lucide="user-plus" class="nav-icon"></i><span class="nav-label">Регистрация</span></a>
+    </nav>
+    <div class="sidebar-account">
+      <div class="account-label">АККАУНТ</div>
+      <a href="#" class="nav-item"><i data-lucide="settings" class="nav-icon"></i><span class="nav-label">Настройки</span></a>
+      <a href="../login/" class="nav-item logout"><i data-lucide="log-out" class="nav-icon"></i><span class="nav-label">Выйти</span></a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main" id="main">
+
+    <header class="topbar">
+      <div class="topbar-right">
+        <button class="icon-btn"><i data-lucide="bell" style="width:18px;height:18px;stroke-width:1.8"></i><span class="badge">3</span></button>
+        <div class="lang-switcher">
+          <button class="lang active">RU</button>
+          <button class="lang">KZ</button>
+          <button class="lang">EN</button>
+        </div>
+        <button class="appmap-btn"><i data-lucide="grid" style="width:16px;height:16px;stroke-width:1.8"></i> Карта приложения</button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <div class="breadcrumb">
+        <a href="../main/">Главная</a>
+        <span class="bc-sep">›</span>
+        <span>Специальности</span>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <button class="btn-red" onclick="openCreateModal()">+ Создать специальность</button>
+        <div class="search-right">
+          <input type="text" placeholder="Название специальности" id="searchInput" oninput="filterTable()">
+          <button class="btn-red" onclick="filterTable()">Поиск</button>
+        </div>
+      </div>
+
+      <div class="results-bar" id="resultsBar">
+        <div class="found-count" id="foundCount">Найдено записей: <strong>0</strong></div>
+        <div class="pagination" id="pagination"></div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <table class="faculties-table" id="facultiesTable">
+          <thead>
+            <tr>
+              <th>КОД</th>
+              <th>НАЗВАНИЕ СПЕЦИАЛЬНОСТИ</th>
+              <th>НАПРАВЛЕНИЕ ПОДГОТОВКИ</th>
+              <th>ДЕЙСТВИЯ</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr class="loading-row"><td colspan="4"><div class="loader"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DETAIL MODAL -->
+  <div class="modal-overlay" id="detailOverlay" onclick="closeDetailOutside(event)">
+    <div class="modal detail-modal">
+      <div class="modal-header">
+        <span class="modal-title">Карточка специальности</span>
+        <button class="modal-close" onclick="closeDetail()"><i data-lucide="x" style="width:18px;height:18px"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="detail-hero">
+          <div class="detail-avatar" id="dt-code">—</div>
+          <div class="detail-name-block">
+            <div class="detail-fullname" id="dt-name"></div>
+          </div>
+        </div>
+        <div class="modal-section-title">Информация</div>
+        <div class="detail-grid">
+          <div class="detail-row">
+            <span class="detail-label">Название (KZ)</span>
+            <span class="detail-value" id="dt-namekz">—</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Название (EN)</span>
+            <span class="detail-value" id="dt-nameen">—</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Направление подготовки</span>
+            <span class="detail-value" id="dt-degree">—</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Форма обучения</span>
+            <span class="detail-value" id="dt-form">—</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Факультет</span>
+            <span class="detail-value" id="dt-faculty">—</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Кафедра</span>
+            <span class="detail-value" id="dt-cafedra">—</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn-cancel" onclick="closeDetail()">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="modalTitle">Создать специальность</span>
+        <button class="modal-close" onclick="closeModal()"><i data-lucide="x" style="width:18px;height:18px"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="modal-field">
+            <label>Код специальности</label>
+            <input type="text" id="f_code" placeholder="Например: B001">
+          </div>
+          <div class="modal-field">
+            <label>Направление подготовки</label>
+            <input type="text" id="f_degree" placeholder="Например: Технические науки">
+          </div>
+          <div class="modal-field" style="grid-column:1/-1">
+            <label>Название (РУ) <span class="req">*</span></label>
+            <input type="text" id="f_nameRU" placeholder="Введите название специальности">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn-cancel" onclick="closeModal()">Отмена</button>
+        <button class="modal-btn-save" onclick="saveItem()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+

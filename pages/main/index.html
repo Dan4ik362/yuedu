@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Главная — YUEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../../assets/img/logo.png" alt="YUEdu" class="logo-img">
+      <span class="logo-text">YUEdu</span>
+    </div>
+    <div class="sidebar-user">
+      <div class="user-avatar-big">ИИ</div>
+      <div class="user-info">
+        <div class="user-name">Иванов Иван</div>
+        <div class="user-role">Студент</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active"><i data-lucide="home" class="nav-icon"></i><span class="nav-label">Главная</span></a>
+      <a href="../schedule/" class="nav-item"><i data-lucide="calendar" class="nav-icon"></i><span class="nav-label">Расписание</span></a>
+      <a href="../faculties/" class="nav-item"><i data-lucide="building-2" class="nav-icon"></i><span class="nav-label">Факультеты</span></a>
+      <a href="../departments/" class="nav-item"><i data-lucide="layers" class="nav-icon"></i><span class="nav-label">Кафедры</span></a>
+      <a href="../specialties/" class="nav-item"><i data-lucide="graduation-cap" class="nav-icon"></i><span class="nav-label">Специальности</span></a>
+      <a href="../teachers/" class="nav-item"><i data-lucide="users" class="nav-icon"></i><span class="nav-label">Преподаватели</span></a>
+      <a href="../students/" class="nav-item"><i data-lucide="user-check" class="nav-icon"></i><span class="nav-label">Обучающиеся</span></a>
+            <a href="../certificates/" class="nav-item"><i data-lucide="award" class="nav-icon"></i><span class="nav-label">Сертификаты</span></a>
+      <a href="../grades/" class="nav-item"><i data-lucide="clipboard-list" class="nav-icon"></i><span class="nav-label">Учебные планы</span></a>
+      <a href="../register/" class="nav-item"><i data-lucide="user-plus" class="nav-icon"></i><span class="nav-label">Регистрация</span></a>
+    </nav>
+    <div class="sidebar-account">
+      <div class="account-label">АККАУНТ</div>
+      <a href="#" class="nav-item"><i data-lucide="settings" class="nav-icon"></i><span class="nav-label">Настройки</span></a>
+      <a href="../login/" class="nav-item logout"><i data-lucide="log-out" class="nav-icon"></i><span class="nav-label">Выйти</span></a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main" id="main">
+
+    <header class="topbar">
+      <div class="topbar-right">
+        <button class="icon-btn"><i data-lucide="bell" style="width:18px;height:18px;stroke-width:1.8"></i><span class="badge">3</span></button>
+        <div class="lang-switcher">
+          <button class="lang active">RU</button>
+          <button class="lang">KZ</button>
+          <button class="lang">EN</button>
+        </div>
+        <button class="appmap-btn"><i data-lucide="grid" style="width:16px;height:16px;stroke-width:1.8"></i> Карта приложения</button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- Приветствие -->
+      <h1 class="welcome">Добро пожаловать, Иванов Иван Иванович</h1>
+
+      <!-- Карточки статистики -->
+      <div class="stats-grid">
+        <a href="../students/" class="stat-card">
+          <div class="stat-icon blue"><i data-lucide="user-check" style="width:22px;height:22px;stroke-width:1.8"></i></div>
+          <div class="stat-info">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Обучающихся</div>
+          </div>
+        </a>
+        <a href="../teachers/" class="stat-card">
+          <div class="stat-icon green"><i data-lucide="users" style="width:22px;height:22px;stroke-width:1.8"></i></div>
+          <div class="stat-info">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Преподавателей</div>
+          </div>
+        </a>
+        <a href="../faculties/" class="stat-card">
+          <div class="stat-icon orange"><i data-lucide="building-2" style="width:22px;height:22px;stroke-width:1.8"></i></div>
+          <div class="stat-info">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Факультетов</div>
+          </div>
+        </a>
+        <a href="../departments/" class="stat-card">
+          <div class="stat-icon purple"><i data-lucide="layers" style="width:22px;height:22px;stroke-width:1.8"></i></div>
+          <div class="stat-info">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Кафедр</div>
+          </div>
+        </a>
+        <a href="../specialties/" class="stat-card">
+          <div class="stat-icon red"><i data-lucide="graduation-cap" style="width:22px;height:22px;stroke-width:1.8"></i></div>
+          <div class="stat-info">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Специальностей</div>
+          </div>
+        </a>
+        <a href="../grades/" class="stat-card">
+          <div class="stat-icon teal"><i data-lucide="clipboard-list" style="width:22px;height:22px;stroke-width:1.8"></i></div>
+          <div class="stat-info">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Записей журнала</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Два столбца: календарь + панель -->
+      <div class="home-grid">
+
+        <!-- Календарь -->
+        <div class="calendar-block">
+          <div class="cal-toolbar">
+            <button class="btn-event">+ Добавить событие</button>
+            <div class="cal-checks">
+              <label class="check-label"><input type="checkbox" checked> Персональные</label>
+              <label class="check-label"><input type="checkbox" checked> Мероприятия студенческих объединений</label>
+            </div>
+          </div>
+
+          <div class="cal-header">
+            <div class="cal-nav">
+              <button class="cal-arrow" onclick="changeMonth(-1)">&#8249;</button>
+              <button class="cal-arrow" onclick="changeMonth(1)">&#8250;</button>
+              <span class="cal-title" id="cal-title"></span>
+            </div>
+            <div class="cal-views">
+              <button class="view-btn active">Месяц</button>
+              <button class="view-btn">Неделя</button>
+              <button class="view-btn">День</button>
+            </div>
+          </div>
+
+          <div class="cal-grid">
+            <div class="cal-day-name">ПН</div>
+            <div class="cal-day-name">ВТ</div>
+            <div class="cal-day-name">СР</div>
+            <div class="cal-day-name">ЧТ</div>
+            <div class="cal-day-name">ПТ</div>
+            <div class="cal-day-name">СБ</div>
+            <div class="cal-day-name">ВС</div>
+            <div id="cal-body"></div>
+          </div>
+        </div>
+
+        <!-- Правая панель -->
+        <div class="side-panel">
+
+          <div class="panel-block">
+            <div class="panel-header">
+              <span class="panel-title">Уведомления</span>
+              <a href="#" class="panel-all">Все</a>
+            </div>
+            <div class="panel-empty">Нет уведомлений</div>
+          </div>
+
+          <div class="panel-block">
+            <div class="panel-header">
+              <span class="panel-title">Объявления</span>
+              <a href="#" class="panel-all">Все</a>
+            </div>
+            <div class="panel-empty">Нет объявлений</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+

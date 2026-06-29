@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сертификаты — YUEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../../assets/img/logo.png" alt="YUEdu" class="logo-img">
+      <span class="logo-text">YUEdu</span>
+    </div>
+    <div class="sidebar-user">
+      <div class="user-avatar-big">ИИ</div>
+      <div class="user-info">
+        <div class="user-name">Иванов Иван</div>
+        <div class="user-role">Администратор</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="../main/" class="nav-item"><i data-lucide="home" class="nav-icon"></i><span class="nav-label">Главная</span></a>
+      <a href="../schedule/" class="nav-item"><i data-lucide="calendar" class="nav-icon"></i><span class="nav-label">Расписание</span></a>
+      <a href="../faculties/" class="nav-item"><i data-lucide="building-2" class="nav-icon"></i><span class="nav-label">Факультеты</span></a>
+      <a href="../departments/" class="nav-item"><i data-lucide="layers" class="nav-icon"></i><span class="nav-label">Кафедры</span></a>
+      <a href="../specialties/" class="nav-item"><i data-lucide="graduation-cap" class="nav-icon"></i><span class="nav-label">Специальности</span></a>
+      <a href="#" class="nav-item"><i data-lucide="users" class="nav-icon"></i><span class="nav-label">Преподаватели</span></a>
+      <a href="../students/" class="nav-item"><i data-lucide="user-check" class="nav-icon"></i><span class="nav-label">Обучающиеся</span></a>
+      <a href="../grades/" class="nav-item"><i data-lucide="clipboard-list" class="nav-icon"></i><span class="nav-label">Учебные планы</span></a>
+      <a href="../certificates/" class="nav-item active"><i data-lucide="award" class="nav-icon"></i><span class="nav-label">Сертификаты</span></a>
+      <a href="../register/" class="nav-item"><i data-lucide="user-plus" class="nav-icon"></i><span class="nav-label">Регистрация</span></a>
+    </nav>
+    <div class="sidebar-account">
+      <div class="account-label">АККАУНТ</div>
+      <a href="#" class="nav-item"><i data-lucide="settings" class="nav-icon"></i><span class="nav-label">Настройки</span></a>
+      <a href="../login/" class="nav-item logout"><i data-lucide="log-out" class="nav-icon"></i><span class="nav-label">Выйти</span></a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main" id="main">
+
+    <header class="topbar">
+      <div class="topbar-right">
+        <button class="icon-btn"><i data-lucide="bell" style="width:18px;height:18px;stroke-width:1.8"></i><span class="badge">3</span></button>
+        <div class="lang-switcher">
+          <button class="lang active">RU</button>
+          <button class="lang">KZ</button>
+          <button class="lang">EN</button>
+        </div>
+        <button class="appmap-btn"><i data-lucide="grid" style="width:16px;height:16px;stroke-width:1.8"></i> Карта приложения</button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb">
+        <a href="../main/">ГЛАВНАЯ</a>
+        <span class="bc-sep">›</span>
+        <span>Сертификаты</span>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions-bar">
+        <button class="btn-outline" onclick="openAddCertModal()">
+          <i data-lucide="plus" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Добавить сертификат
+        </button>
+        <button class="btn-green" onclick="downloadReport()">
+          <i data-lucide="download" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Скачать отчёт
+        </button>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters-block">
+        <div class="filter-row">
+          <div class="filter-group wide">
+            <label>ПОИСК</label>
+            <div class="search-wrap">
+              <input type="text" id="searchInput" placeholder="Введите Ф.И.О., ИИН или номер сертификата" oninput="filterCerts()">
+              <button class="search-btn"><i data-lucide="search" style="width:16px;height:16px;stroke-width:2"></i></button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label>ТИП СЕРТИФИКАТА</label>
+            <select id="filterType" onchange="filterCerts()">
+              <option value="">Все</option>
+              <option>Языковой</option>
+              <option>Профессиональный</option>
+              <option>Академический</option>
+              <option>Спортивный</option>
+              <option>Другое</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>СТАТУС</label>
+            <select id="filterStatus" onchange="filterCerts()">
+              <option value="">Все</option>
+              <option>Активен</option>
+              <option>Истёк</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>ГОД ВЫДАЧИ</label>
+            <select id="filterYear" onchange="filterCerts()">
+              <option value="">Все</option>
+              <option>2026</option>
+              <option>2025</option>
+              <option>2024</option>
+              <option>2023</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results bar -->
+      <div class="results-bar">
+        <span class="results-count">Найдено: <strong id="resultsCount">0</strong></span>
+        <div class="pagination" id="pagination"></div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <table class="students-table">
+          <thead>
+            <tr>
+              <th class="col-check"><input type="checkbox" id="checkAll" onchange="toggleAll(this)"></th>
+              <th>ФАМИЛИЯ И.О.</th>
+              <th>ТИП СЕРТИФИКАТА</th>
+              <th>НАЗВАНИЕ</th>
+              <th>НОМЕР</th>
+              <th>ДАТА ВЫДАЧИ</th>
+              <th>ДЕЙСТВИТЕЛЕН ДО</th>
+              <th>СТАТУС</th>
+            </tr>
+          </thead>
+          <tbody id="certTableBody"></tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ADD CERT MODAL -->
+  <div class="modal-overlay" id="addCertModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Добавить сертификат</h3>
+        <button class="modal-close" onclick="closeAddCertModal()"><i data-lucide="x" style="width:16px;height:16px"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label>ОБУЧАЮЩИЙСЯ</label>
+            <select id="cert_student">
+              <option value="">— Выберите —</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>ТИП СЕРТИФИКАТА</label>
+            <select id="cert_type">
+              <option value="">— Выберите —</option>
+              <option>Языковой</option>
+              <option>Профессиональный</option>
+              <option>Академический</option>
+              <option>Спортивный</option>
+              <option>Другое</option>
+            </select>
+          </div>
+          <div class="form-field" style="grid-column:span 2">
+            <label>НАЗВАНИЕ СЕРТИФИКАТА</label>
+            <input type="text" id="cert_name" placeholder="Например: IELTS 7.0">
+          </div>
+          <div class="form-field">
+            <label>НОМЕР СЕРТИФИКАТА</label>
+            <input type="text" id="cert_number" placeholder="Например: KZ-2024-001234">
+          </div>
+          <div class="form-field">
+            <label>ОРГАНИЗАЦИЯ, ВЫДАВШАЯ</label>
+            <input type="text" id="cert_org" placeholder="Например: British Council">
+          </div>
+          <div class="form-field">
+            <label>ДАТА ВЫДАЧИ</label>
+            <input type="date" id="cert_date_issue">
+          </div>
+          <div class="form-field">
+            <label>ДЕЙСТВИТЕЛЕН ДО</label>
+            <input type="date" id="cert_date_expiry">
+          </div>
+          <div class="form-field" style="grid-column:span 2">
+            <label>ПРИМЕЧАНИЕ</label>
+            <textarea id="cert_note" rows="2" placeholder="Дополнительная информация"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel-modal" onclick="closeAddCertModal()">Отмена</button>
+        <button class="btn-save-modal" onclick="saveCert()">
+          <i data-lucide="save" style="width:14px;height:14px;margin-right:5px;vertical-align:middle"></i>Сохранить
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

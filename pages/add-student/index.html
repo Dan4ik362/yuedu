@@ -1,0 +1,1526 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Добавить обучающегося — YUEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../../assets/img/logo.png" alt="YUEdu" class="logo-img">
+      <span class="logo-text">YUEdu</span>
+    </div>
+    <div class="sidebar-user">
+      <div class="user-avatar-big">ИИ</div>
+      <div class="user-info">
+        <div class="user-name">Иванов Иван</div>
+        <div class="user-role">Администратор</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="../main/" class="nav-item"><i data-lucide="home" class="nav-icon"></i><span class="nav-label">Главная</span></a>
+      <a href="../schedule/" class="nav-item"><i data-lucide="calendar" class="nav-icon"></i><span class="nav-label">Расписание</span></a>
+      <a href="../faculties/" class="nav-item"><i data-lucide="building-2" class="nav-icon"></i><span class="nav-label">Факультеты</span></a>
+      <a href="../departments/" class="nav-item"><i data-lucide="layers" class="nav-icon"></i><span class="nav-label">Кафедры</span></a>
+      <a href="../specialties/" class="nav-item"><i data-lucide="graduation-cap" class="nav-icon"></i><span class="nav-label">Специальности</span></a>
+      <a href="../teachers/" class="nav-item"><i data-lucide="users" class="nav-icon"></i><span class="nav-label">Преподаватели</span></a>
+      <a href="../students/" class="nav-item active"><i data-lucide="user-check" class="nav-icon"></i><span class="nav-label">Обучающиеся</span></a>
+            <a href="../certificates/" class="nav-item"><i data-lucide="award" class="nav-icon"></i><span class="nav-label">Сертификаты</span></a>
+      <a href="../grades/" class="nav-item"><i data-lucide="clipboard-list" class="nav-icon"></i><span class="nav-label">Учебные планы</span></a>
+      <a href="../register/" class="nav-item"><i data-lucide="user-plus" class="nav-icon"></i><span class="nav-label">Регистрация</span></a>
+    </nav>
+    <div class="sidebar-account">
+      <div class="account-label">АККАУНТ</div>
+      <a href="#" class="nav-item"><i data-lucide="settings" class="nav-icon"></i><span class="nav-label">Настройки</span></a>
+      <a href="../login/" class="nav-item logout"><i data-lucide="log-out" class="nav-icon"></i><span class="nav-label">Выйти</span></a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main" id="main">
+
+    <header class="topbar">
+      <div class="topbar-right">
+        <button class="icon-btn"><i data-lucide="bell" style="width:18px;height:18px;stroke-width:1.8"></i><span class="badge">3</span></button>
+        <div class="lang-switcher">
+          <button class="lang active">RU</button>
+          <button class="lang">KZ</button>
+          <button class="lang">EN</button>
+        </div>
+        <button class="appmap-btn"><i data-lucide="grid" style="width:16px;height:16px;stroke-width:1.8"></i> Карта приложения</button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <div class="breadcrumb">
+        <a href="../main/">Главная</a>
+        <span class="bc-sep">›</span>
+        <a href="../students/">Обучающиеся</a>
+        <span class="bc-sep">›</span>
+        <span>Добавить обучающегося</span>
+      </div>
+
+      <div class="page-layout">
+
+        <!-- LEFT NAV -->
+        <div class="tab-nav">
+          <div class="tab-nav-header">
+            <h3>Разделы</h3>
+          </div>
+          <div class="tab-nav-list">
+            <button class="tab-item active" onclick="switchTab(0)">
+              <span class="tab-num">1</span>
+              <span class="tab-label">Личные данные</span>
+            </button>
+            <button class="tab-item" onclick="switchTab(1)">
+              <span class="tab-num">2</span>
+              <span class="tab-label">Документы</span>
+            </button>
+            <button class="tab-item" onclick="switchTab(2)">
+              <span class="tab-num">3</span>
+              <span class="tab-label">Контактная информация</span>
+            </button>
+            <button class="tab-item" onclick="switchTab(3)">
+              <span class="tab-num">4</span>
+              <span class="tab-label">Сведения об обучении</span>
+            </button>
+            <button class="tab-item" onclick="switchTab(4)">
+              <span class="tab-num">5</span>
+              <span class="tab-label">Сведения о предыдущем образовании</span>
+            </button>
+            <button class="tab-item" onclick="switchTab(5)">
+              <span class="tab-num">6</span>
+              <span class="tab-label">Личные достижения</span>
+            </button>
+            <button class="tab-item" onclick="switchTab(6)">
+              <span class="tab-num">7</span>
+              <span class="tab-label">Приказы по движению обучающегося</span>
+            </button>
+            <button class="tab-item" onclick="switchTab(7)">
+              <span class="tab-num">8</span>
+              <span class="tab-label">Сведения о трудоустройстве выпускника</span>
+            </button>
+            <button class="tab-item" onclick="switchTab(8)">
+              <span class="tab-num">9</span>
+              <span class="tab-label">Льготы</span>
+            </button>
+            <button class="tab-item" onclick="switchTab(9)">
+              <span class="tab-num">10</span>
+              <span class="tab-label">Прочее</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT CONTENT -->
+        <div class="tab-content">
+
+          <!-- 0: Личные данные -->
+          <div class="tab-panel active" id="panel-0">
+
+            <!-- Секция: Персональные сведения -->
+            <div class="section-card">
+              <div class="section-header" onclick="toggleSection('sec-personal')">
+                <span class="section-title">Персональные сведения</span>
+                <i data-lucide="chevron-down" class="section-chevron" id="chev-sec-personal" style="width:18px;height:18px"></i>
+              </div>
+              <div class="section-body" id="sec-personal">
+
+                <!-- Фото + ФИО -->
+                <div class="personal-top">
+                  <div class="photo-block">
+                    <div class="photo-placeholder" onclick="document.getElementById('photoInput').click()">
+                      <i data-lucide="user" style="width:48px;height:48px;color:#9ca3af"></i>
+                    </div>
+                    <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="previewPhoto(this)">
+                    <div class="photo-hint">Нажмите для загрузки фото</div>
+                  </div>
+
+                  <div class="fio-block">
+                    <!-- Внутренние мини-табы -->
+                    <div class="inner-tabs">
+                      <button class="inner-tab active" onclick="switchInner(0)">ФИО</button>
+                      <button class="inner-tab" onclick="switchInner(1)">Прежняя ФИО (в случае изменения)</button>
+                    </div>
+
+                    <div class="inner-panel active" id="inner-0">
+                      <div class="form-grid-2">
+                        <div class="form-field">
+                          <label>ФАМИЛИЯ <span class="req">*</span></label>
+                          <input type="text" id="f_last" placeholder="">
+                        </div>
+                        <div class="form-field">
+                          <label>ФАМИЛИЯ ТРАНСЛИТОМ <span class="req">*</span></label>
+                          <input type="text" id="f_last_tr" placeholder="">
+                        </div>
+                        <div class="form-field">
+                          <label>ИМЯ <span class="req">*</span></label>
+                          <input type="text" id="f_first" placeholder="">
+                        </div>
+                        <div class="form-field">
+                          <label>ИМЯ ТРАНСЛИТОМ <span class="req">*</span></label>
+                          <input type="text" id="f_first_tr" placeholder="">
+                        </div>
+                        <div class="form-field">
+                          <label>ОТЧЕСТВО</label>
+                          <input type="text" id="f_mid" placeholder="">
+                        </div>
+                        <div class="form-field">
+                          <label>ОТЧЕСТВО ТРАНСЛИТОМ</label>
+                          <input type="text" id="f_mid_tr" placeholder="">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="inner-panel" id="inner-1">
+                      <div class="form-grid-2">
+                        <div class="form-field">
+                          <label>ПРЕЖНЯЯ ФАМИЛИЯ</label>
+                          <input type="text" placeholder="">
+                        </div>
+                        <div class="form-field">
+                          <label>ПРЕЖНЯЯ ФАМИЛИЯ ТРАНСЛИТОМ</label>
+                          <input type="text" placeholder="">
+                        </div>
+                        <div class="form-field">
+                          <label>ПРЕЖНЕЕ ИМЯ</label>
+                          <input type="text" placeholder="">
+                        </div>
+                        <div class="form-field">
+                          <label>ПРЕЖНЕЕ ИМЯ ТРАНСЛИТОМ</label>
+                          <input type="text" placeholder="">
+                        </div>
+                        <div class="form-field">
+                          <label>ПРЕЖНЕЕ ОТЧЕСТВО</label>
+                          <input type="text" placeholder="">
+                        </div>
+                        <div class="form-field">
+                          <label>ПРЕЖНЕЕ ОТЧЕСТВО ТРАНСЛИТОМ</label>
+                          <input type="text" placeholder="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Основные поля -->
+                <div class="form-grid-2" style="margin-top:24px">
+                  <div class="form-field">
+                    <label>ИИН <span class="req">*</span></label>
+                    <input type="text" id="f_iin" placeholder="" maxlength="12" oninput="onIinInput(this)">
+                  </div>
+                  <div class="form-field">
+                    <label>ДАТА РОЖДЕНИЯ <span class="req">*</span></label>
+                    <input type="date" id="f_birth">
+                  </div>
+                  <div class="form-field">
+                    <label>НАЦИОНАЛЬНОСТЬ <span class="req">*</span></label>
+                    <select id="f_nation">
+                      <option value="">— Выберите —</option>
+                      <option>Абхазец</option><option>Аварец</option><option>Австралиец</option><option>Австриец</option><option>Азербайджанец</option><option>Албанец</option><option>Алжирец</option><option>Американец</option><option>Англичанин</option><option>Ангольец</option><option>Аргентинец</option><option>Армянин</option><option>Афганец</option><option>Африканец</option>
+                      <option>Башкир</option><option>Белорус</option><option>Болгарин</option><option>Боснийец</option><option>Бразилец</option><option>Бурят</option>
+                      <option>Венгр</option><option>Венесуэлец</option><option>Вьетнамец</option>
+                      <option>Грек</option><option>Грузин</option>
+                      <option>Датчанин</option><option>Дунганин</option>
+                      <option>Египтянин</option>
+                      <option>Еврей</option>
+                      <option>Индиец</option><option>Индонезиец</option><option>Иорданец</option><option>Иранец</option><option>Ирландец</option><option>Испанец</option><option>Итальянец</option>
+                      <option>Казах</option><option>Калмык</option><option>Канадец</option><option>Китаец</option><option>Киргиз</option><option>Колумбиец</option><option>Кореец</option><option>Кубинец</option><option>Курд</option>
+                      <option>Латыш</option><option>Литовец</option>
+                      <option>Македонец</option><option>Малаец</option><option>Мексиканец</option><option>Монгол</option>
+                      <option>Нидерландец</option><option>Немец</option><option>Нигериец</option><option>Норвежец</option>
+                      <option>Осетин</option>
+                      <option>Пакистанец</option><option>Перс</option><option>Перуанец</option><option>Поляк</option><option>Португалец</option>
+                      <option>Румын</option><option>Русский</option>
+                      <option>Саудовец</option><option>Серб</option><option>Словак</option><option>Словенец</option>
+                      <option>Таджик</option><option>Таиландец</option><option>Татарин</option><option>Туркмен</option><option>Турок</option>
+                      <option>Уйгур</option><option>Украинец</option><option>Узбек</option>
+                      <option>Финн</option><option>Француз</option>
+                      <option>Хорват</option>
+                      <option>Чех</option><option>Чеченец</option><option>Чуваш</option>
+                      <option>Швед</option><option>Швейцарец</option>
+                      <option>Эстонец</option>
+                      <option>Якут</option><option>Японец</option>
+                      <option>Другое</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label>ПОЛ <span class="req">*</span></label>
+                    <select>
+                      <option value=""></option>
+                      <option>Мужской</option>
+                      <option>Женский</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label>СЕМЕЙНОЕ ПОЛОЖЕНИЕ</label>
+                    <select>
+                      <option>Холост/Не замужем</option>
+                      <option>Женат/Замужем</option>
+                      <option>Разведён/Разведена</option>
+                    </select>
+                  </div>
+                  <div class="form-field" style="display:flex;align-items:flex-end;padding-bottom:10px">
+                    <label class="check-inline">
+                      <input type="checkbox">
+                      <span>Проживает в данном городе, не иногородний</span>
+                    </label>
+                  </div>
+                  <div class="form-field">
+                    <label>ГРАЖДАНСТВО <span class="req">*</span></label>
+                    <select id="f_citizenship">
+                      <option value="">— Выберите —</option>
+                      <option selected>Казахстан</option>
+                      <option>Австралия</option><option>Австрия</option><option>Азербайджан</option><option>Албания</option><option>Алжир</option><option>Ангола</option><option>Андорра</option><option>Аргентина</option><option>Армения</option><option>Афганистан</option>
+                      <option>Бангладеш</option><option>Беларусь</option><option>Бельгия</option><option>Болгария</option><option>Боливия</option><option>Босния и Герцеговина</option><option>Бразилия</option>
+                      <option>Великобритания</option><option>Венгрия</option><option>Венесуэла</option><option>Вьетнам</option>
+                      <option>Германия</option><option>Греция</option><option>Грузия</option>
+                      <option>Дания</option>
+                      <option>Египет</option>
+                      <option>Израиль</option><option>Индия</option><option>Индонезия</option><option>Иордания</option><option>Ирак</option><option>Иран</option><option>Ирландия</option><option>Испания</option><option>Италия</option>
+                      <option>Камбоджа</option><option>Камерун</option><option>Канада</option><option>Катар</option><option>Кипр</option><option>Киргизия</option><option>Китай</option><option>Колумбия</option><option>Куба</option>
+                      <option>Латвия</option><option>Ливан</option><option>Литва</option>
+                      <option>Македония</option><option>Малайзия</option><option>Мексика</option><option>Молдова</option><option>Монголия</option><option>Марокко</option>
+                      <option>Нидерланды</option><option>Нигерия</option><option>Норвегия</option><option>Новая Зеландия</option>
+                      <option>ОАЭ</option>
+                      <option>Пакистан</option><option>Перу</option><option>Польша</option><option>Португалия</option>
+                      <option>Россия</option><option>Румыния</option>
+                      <option>Саудовская Аравия</option><option>Сербия</option><option>Сингапур</option><option>Словакия</option><option>Словения</option><option>США</option>
+                      <option>Таджикистан</option><option>Таиланд</option><option>Тунис</option><option>Туркменистан</option><option>Турция</option>
+                      <option>Узбекистан</option><option>Украина</option>
+                      <option>Финляндия</option><option>Франция</option>
+                      <option>Хорватия</option>
+                      <option>Чехия</option><option>Чили</option>
+                      <option>Швейцария</option><option>Швеция</option>
+                      <option>Эстония</option>
+                      <option>Япония</option>
+                      <option>Другое</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label>СТРАНА, ОТКУДА ПРИБЫЛ</label>
+                    <select id="f_from_country">
+                      <option value="">— Выберите —</option>
+                      <option selected>Казахстан</option>
+                      <option>Австралия</option><option>Австрия</option><option>Азербайджан</option><option>Албания</option><option>Алжир</option><option>Ангола</option><option>Андорра</option><option>Аргентина</option><option>Армения</option><option>Афганистан</option>
+                      <option>Бангладеш</option><option>Беларусь</option><option>Бельгия</option><option>Болгария</option><option>Боливия</option><option>Босния и Герцеговина</option><option>Бразилия</option>
+                      <option>Великобритания</option><option>Венгрия</option><option>Венесуэла</option><option>Вьетнам</option>
+                      <option>Германия</option><option>Греция</option><option>Грузия</option>
+                      <option>Дания</option>
+                      <option>Египет</option>
+                      <option>Израиль</option><option>Индия</option><option>Индонезия</option><option>Иордания</option><option>Ирак</option><option>Иран</option><option>Ирландия</option><option>Испания</option><option>Италия</option>
+                      <option>Камбоджа</option><option>Камерун</option><option>Канада</option><option>Катар</option><option>Кипр</option><option>Киргизия</option><option>Китай</option><option>Колумбия</option><option>Куба</option>
+                      <option>Латвия</option><option>Ливан</option><option>Литва</option>
+                      <option>Македония</option><option>Малайзия</option><option>Мексика</option><option>Молдова</option><option>Монголия</option><option>Марокко</option>
+                      <option>Нидерланды</option><option>Нигерия</option><option>Норвегия</option><option>Новая Зеландия</option>
+                      <option>ОАЭ</option>
+                      <option>Пакистан</option><option>Перу</option><option>Польша</option><option>Португалия</option>
+                      <option>Россия</option><option>Румыния</option>
+                      <option>Саудовская Аравия</option><option>Сербия</option><option>Сингапур</option><option>Словакия</option><option>Словения</option><option>США</option>
+                      <option>Таджикистан</option><option>Таиланд</option><option>Тунис</option><option>Туркменистан</option><option>Турция</option>
+                      <option>Узбекистан</option><option>Украина</option>
+                      <option>Финляндия</option><option>Франция</option>
+                      <option>Хорватия</option>
+                      <option>Чехия</option><option>Чили</option>
+                      <option>Швейцария</option><option>Швеция</option>
+                      <option>Эстония</option>
+                      <option>Япония</option>
+                      <option>Другое</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label>ОБЛАСТЬ, ОТКУДА ПРИБЫЛ</label>
+                    <select id="f_from_region">
+                      <option value="">— Выберите —</option>
+                      <option>г. Астана</option>
+                      <option>г. Алматы</option>
+                      <option>г. Шымкент</option>
+                      <option>Абайская область</option>
+                      <option>Акмолинская область</option>
+                      <option>Актюбинская область</option>
+                      <option>Алматинская область</option>
+                      <option>Атырауская область</option>
+                      <option>Восточно-Казахстанская область</option>
+                      <option>Жамбылская область</option>
+                      <option>Жетысуская область</option>
+                      <option>Западно-Казахстанская область</option>
+                      <option>Карагандинская область</option>
+                      <option>Костанайская область</option>
+                      <option>Кызылординская область</option>
+                      <option>Мангистауская область</option>
+                      <option>Павлодарская область</option>
+                      <option>Северо-Казахстанская область</option>
+                      <option>Туркестанская область</option>
+                      <option>Улытауская область</option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Секция: Место рождения -->
+            <div class="section-card">
+              <div class="section-header" onclick="toggleSection('sec-birth')">
+                <span class="section-title">Место рождения</span>
+                <i data-lucide="chevron-down" class="section-chevron" id="chev-sec-birth" style="width:18px;height:18px"></i>
+              </div>
+              <div class="section-body" id="sec-birth">
+                <div class="form-grid-2">
+                  <div class="form-field" style="grid-column:1/-1">
+                    <label>НАСЕЛЁННЫЙ ПУНКТ РОЖДЕНИЯ (КАТО)</label>
+                    <div class="kato-wrap" id="kato-birth">
+                      <input type="text" class="kato-input" placeholder="Начните вводить населённый пункт, например, Астана" autocomplete="off" oninput="katoSearch(this,'kato-birth')" onfocus="katoSearch(this,'kato-birth')">
+                      <input type="hidden" class="kato-value">
+                      <div class="kato-dropdown"></div>
+                    </div>
+                  </div>
+                  <div class="form-field" style="grid-column:1/-1;display:flex;align-items:center">
+                    <label class="check-inline">
+                      <input type="checkbox">
+                      <span>Родился в другой стране</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Секция: Место прописки -->
+            <div class="section-card">
+              <div class="section-header" onclick="toggleSection('sec-reg')">
+                <span class="section-title">Место прописки</span>
+                <i data-lucide="chevron-down" class="section-chevron" id="chev-sec-reg" style="width:18px;height:18px"></i>
+              </div>
+              <div class="section-body" id="sec-reg">
+                <div class="form-grid-2">
+                  <div class="form-field">
+                    <label>НАСЕЛЁННЫЙ ПУНКТ ПРОПИСКИ (КАТО)</label>
+                    <div class="kato-wrap" id="kato-reg">
+                      <input type="text" class="kato-input" placeholder="Начните вводить населённый пункт, например, Астана" autocomplete="off" oninput="katoSearch(this,'kato-reg')" onfocus="katoSearch(this,'kato-reg')">
+                      <input type="hidden" class="kato-value">
+                      <div class="kato-dropdown"></div>
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <label>АДРЕС ПРОПИСКИ</label>
+                    <input type="text" placeholder="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Секция: Место проживания -->
+            <div class="section-card">
+              <div class="section-header" onclick="toggleSection('sec-live')">
+                <span class="section-title">Место проживания</span>
+                <i data-lucide="chevron-down" class="section-chevron" id="chev-sec-live" style="width:18px;height:18px"></i>
+              </div>
+              <div class="section-body" id="sec-live">
+                <div class="form-grid-2">
+                  <div class="form-field">
+                    <label>НАСЕЛЁННЫЙ ПУНКТ ПРОЖИВАНИЯ (КАТО)</label>
+                    <div class="kato-wrap" id="kato-live">
+                      <input type="text" class="kato-input" placeholder="Начните вводить населённый пункт, например, Астана" autocomplete="off" oninput="katoSearch(this,'kato-live')" onfocus="katoSearch(this,'kato-live')">
+                      <input type="hidden" class="kato-value">
+                      <div class="kato-dropdown"></div>
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <label>АДРЕС ПРОЖИВАНИЯ</label>
+                    <input type="text" placeholder="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Секция: Родители -->
+            <div class="section-card">
+              <div class="section-header" onclick="toggleSection('sec-parents')">
+                <span class="section-title">Родители</span>
+                <i data-lucide="chevron-down" class="section-chevron" id="chev-sec-parents" style="width:18px;height:18px"></i>
+              </div>
+              <div class="section-body" id="sec-parents">
+                <button class="btn-red-sm" onclick="addParent()">Добавить</button>
+                <table class="parents-table">
+                  <thead>
+                    <tr>
+                      <th>НАИМЕНОВАНИЕ</th>
+                      <th>КОНТАКТНАЯ ИНФОРМАЦИЯ</th>
+                    </tr>
+                  </thead>
+                  <tbody id="parentsBody">
+                    <tr class="empty-row"><td colspan="2">Нет добавленных записей</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn-cancel" onclick="history.back()">Отмена</button>
+              <button class="btn-save" onclick="saveStudent()"><i data-lucide="save" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Сохранить</button>
+            </div>
+          </div>
+
+          <!-- 1: Документы -->
+          <div class="tab-panel" id="panel-1">
+
+            <!-- Удостоверяющий документ -->
+            <div class="form-card">
+              <div class="form-card-title">
+                <i data-lucide="file-badge" style="width:18px;height:18px"></i>
+                Документы
+              </div>
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label>ДОКУМЕНТ, УДОСТОВЕРЯЮЩИЙ ЛИЧНОСТЬ</label>
+                  <div class="ss-wrap" id="ss-doc-type">
+                    <button type="button" class="ss-trigger" onclick="toggleSS('ss-doc-type')">
+                      <span class="ss-selected">удостоверение личности</span>
+                      <i data-lucide="chevron-down" style="width:15px;height:15px;flex-shrink:0"></i>
+                    </button>
+                    <div class="ss-dropdown">
+                      <input class="ss-search" type="text" placeholder="" oninput="filterSS('ss-doc-type',this.value)">
+                      <div class="ss-options">
+                        <div class="ss-option" onclick="selectSS('ss-doc-type','вид на жительство')">вид на жительство</div>
+                        <div class="ss-option" onclick="selectSS('ss-doc-type','другой документ')">другой документ</div>
+                        <div class="ss-option" onclick="selectSS('ss-doc-type','паспорт')">паспорт</div>
+                        <div class="ss-option" onclick="selectSS('ss-doc-type','свидетельство о рождении')">свидетельство о рождении</div>
+                        <div class="ss-option active" onclick="selectSS('ss-doc-type','удостоверение личности')">удостоверение личности</div>
+                      </div>
+                    </div>
+                    <input type="hidden" id="doc_type" value="удостоверение личности">
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label>НОМЕР ДОКУМЕНТА, УДОСТОВЕРЯЮЩЕГО ЛИЧНОСТЬ</label>
+                  <input type="text" id="doc_num" placeholder="">
+                </div>
+                <div class="form-field">
+                  <label>СЕРИЯ ДОКУМЕНТА, УДОСТОВЕРЯЮЩЕГО ЛИЧНОСТЬ</label>
+                  <input type="text" id="doc_series" placeholder="">
+                </div>
+                <div class="form-field">
+                  <label>ДАТА ВЫДАЧИ ДОКУМЕНТА, УДОСТОВЕРЯЮЩЕГО ЛИЧНОСТЬ</label>
+                  <input type="date" id="doc_issued">
+                </div>
+                <div class="form-field">
+                  <label>СРОК ДЕЙСТВИЯ ДОКУМЕНТА, УДОСТОВЕРЯЮЩЕГО ЛИЧНОСТЬ</label>
+                  <input type="date" id="doc_expiry">
+                </div>
+                <div class="form-field">
+                  <label>ВЫБЕРИТЕ ОРГАН, ВЫДАВШИЙ ДОКУМЕНТ, УДОСТОВЕРЯЮЩЕГО ЛИЧНОСТЬ</label>
+                  <div class="ss-wrap" id="ss-doc-issuer">
+                    <button type="button" class="ss-trigger" onclick="toggleSS('ss-doc-issuer')">
+                      <span class="ss-selected" style="color:#c4c9d4"></span>
+                      <i data-lucide="chevron-down" style="width:15px;height:15px;flex-shrink:0"></i>
+                    </button>
+                    <div class="ss-dropdown">
+                      <input class="ss-search" type="text" placeholder="" oninput="filterSS('ss-doc-issuer',this.value)">
+                      <div class="ss-options">
+                        <div class="ss-option" onclick="selectSS('ss-doc-issuer','Другой уполномоченный орган')">Другой уполномоченный орган</div>
+                        <div class="ss-option" onclick="selectSS('ss-doc-issuer','Министерство внутренних дел РК')">Министерство внутренних дел РК</div>
+                        <div class="ss-option" onclick="selectSS('ss-doc-issuer','Министерство Юстиции РК')">Министерство Юстиции РК</div>
+                      </div>
+                    </div>
+                    <input type="hidden" id="doc_issuer" value="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Загружаемые файлы -->
+            <div class="form-card">
+              <div class="form-card-title">
+                <i data-lucide="upload" style="width:18px;height:18px"></i>
+                Сканы документов
+              </div>
+              <div class="upload-list">
+                <div class="upload-item">
+                  <span class="upload-label">СКАН-КОПИЯ МЕДИЦИНСКОЙ СПРАВКИ</span>
+                  <label class="btn-upload"><i data-lucide="upload" style="width:13px;height:13px;margin-right:5px;vertical-align:middle"></i>Загрузить<input type="file" accept=".pdf,.jpg,.png" onchange="fileChosen(this)"></label>
+                  <span class="upload-filename"></span>
+                </div>
+                <div class="upload-item">
+                  <span class="upload-label">СПРАВКА 063/У</span>
+                  <label class="btn-upload"><i data-lucide="upload" style="width:13px;height:13px;margin-right:5px;vertical-align:middle"></i>Загрузить<input type="file" accept=".pdf,.jpg,.png" onchange="fileChosen(this)"></label>
+                  <span class="upload-filename"></span>
+                </div>
+                <div class="upload-item">
+                  <span class="upload-label">ПОДТВЕРЖДАЮЩИЙ ДОКУМЕНТ ПО ТВОРЧЕСКОМУ ЭКЗАМЕНУ</span>
+                  <label class="btn-upload"><i data-lucide="upload" style="width:13px;height:13px;margin-right:5px;vertical-align:middle"></i>Загрузить<input type="file" accept=".pdf,.jpg,.png" onchange="fileChosen(this)"></label>
+                  <span class="upload-filename"></span>
+                </div>
+                <div class="upload-item">
+                  <span class="upload-label">ПОДТВЕРЖДАЮЩИЙ ДОКУМЕНТ ПО СПЕЦИАЛЬНОМУ ЭКЗАМЕНУ</span>
+                  <label class="btn-upload"><i data-lucide="upload" style="width:13px;height:13px;margin-right:5px;vertical-align:middle"></i>Загрузить<input type="file" accept=".pdf,.jpg,.png" onchange="fileChosen(this)"></label>
+                  <span class="upload-filename"></span>
+                </div>
+                <div class="upload-item">
+                  <span class="upload-label">МЕДИЦИНСКАЯ СПРАВКА ВЛЭК (СКАН)</span>
+                  <label class="btn-upload"><i data-lucide="upload" style="width:13px;height:13px;margin-right:5px;vertical-align:middle"></i>Загрузить<input type="file" accept=".pdf,.jpg,.png" onchange="fileChosen(this)"></label>
+                  <span class="upload-filename"></span>
+                </div>
+                <div class="upload-item">
+                  <span class="upload-label">ДОКУМЕНТ, УДОСТОВЕРЯЮЩИЙ ЛИЧНОСТЬ (СКАН)</span>
+                  <label class="btn-upload"><i data-lucide="upload" style="width:13px;height:13px;margin-right:5px;vertical-align:middle"></i>Загрузить<input type="file" accept=".pdf,.jpg,.png" onchange="fileChosen(this)"></label>
+                  <span class="upload-filename"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Дополнительные документы -->
+            <div class="section-card">
+              <div class="section-header" onclick="toggleSection('sec-extra-docs')">
+                <span class="section-title">Дополнительные документы</span>
+                <i data-lucide="chevron-down" class="section-chevron" id="chev-sec-extra-docs" style="width:18px;height:18px"></i>
+              </div>
+              <div class="section-body collapsed" id="sec-extra-docs">
+                <button class="btn-red-sm" onclick="addExtraDoc()">Добавить</button>
+                <div id="extraDocsList"></div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn-cancel" onclick="history.back()">Отмена</button>
+              <button class="btn-save" onclick="saveStudent()"><i data-lucide="save" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Сохранить</button>
+            </div>
+          </div>
+
+          <!-- 2: Контактная информация -->
+          <div class="tab-panel" id="panel-2">
+            <div class="form-card">
+              <div class="form-card-title">
+                <i data-lucide="phone" style="width:18px;height:18px"></i>
+                Контактная информация
+              </div>
+              <div class="form-grid-2">
+
+                <div class="form-field">
+                  <label>ДОМАШНИЙ ТЕЛЕФОН</label>
+                  <input type="text" placeholder="Допустимые символы: +,0-9,),(">
+                </div>
+
+                <div class="form-field">
+                  <label>МОБИЛЬНЫЙ ТЕЛЕФОН <span class="req">*</span></label>
+                  <div class="phone-wrap">
+                    <div class="cp-wrap" id="cp-phone1">
+                      <button type="button" class="cp-flag-btn" onclick="toggleCP('cp-phone1')">
+                        <img src="https://flagcdn.com/w20/kz.png" alt="KZ" id="cp-phone1-flag">
+                        <i data-lucide="chevron-down" style="width:13px;height:13px"></i>
+                      </button>
+                      <div class="cp-dropdown">
+                        <div class="cp-search-wrap">
+                          <input type="text" class="cp-search" placeholder="Search countries" oninput="filterCP('cp-phone1',this.value)">
+                        </div>
+                        <div class="cp-list" id="cp-phone1-list"></div>
+                      </div>
+                    </div>
+                    <input type="text" id="c_phone1" placeholder="+7(###)###-##-##">
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>МОБИЛЬНЫЙ ТЕЛЕФОН 2</label>
+                  <div class="phone-wrap">
+                    <div class="cp-wrap" id="cp-phone2">
+                      <button type="button" class="cp-flag-btn" onclick="toggleCP('cp-phone2')">
+                        <img src="https://flagcdn.com/w20/kz.png" alt="KZ" id="cp-phone2-flag">
+                        <i data-lucide="chevron-down" style="width:13px;height:13px"></i>
+                      </button>
+                      <div class="cp-dropdown">
+                        <div class="cp-search-wrap">
+                          <input type="text" class="cp-search" placeholder="Search countries" oninput="filterCP('cp-phone2',this.value)">
+                        </div>
+                        <div class="cp-list" id="cp-phone2-list"></div>
+                      </div>
+                    </div>
+                    <input type="text" id="c_phone2" placeholder="+7(###)###-##-##">
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>ПОЧТА <span class="req">*</span></label>
+                  <div class="icon-input-wrap">
+                    <span class="icon-input-icon">@</span>
+                    <input type="email" id="c_email" placeholder="">
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>ДОПОЛНИТЕЛЬНАЯ ПОЧТА</label>
+                  <div class="icon-input-wrap">
+                    <span class="icon-input-icon">@</span>
+                    <input type="email" id="c_email2" placeholder="">
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>ВАШ ПРОФАЙЛ ВКОНТАКТЕ</label>
+                  <div class="icon-input-wrap">
+                    <span class="icon-input-icon social-icon" style="background:#0077ff;color:#fff">ВК</span>
+                    <input type="text" id="c_vk" placeholder="">
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>ВАШ ПРОФАЙЛ FACEBOOK</label>
+                  <div class="icon-input-wrap">
+                    <span class="icon-input-icon social-icon" style="background:#1877f2;color:#fff">f</span>
+                    <input type="text" id="c_fb" placeholder="">
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>ВАШ ПРОФАЙЛ INSTAGRAM</label>
+                  <div class="icon-input-wrap">
+                    <span class="icon-input-icon social-icon" style="background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%);color:#fff">◎</span>
+                    <input type="text" id="c_ig" placeholder="">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn-cancel" onclick="history.back()">Отмена</button>
+              <button class="btn-save" onclick="saveStudent()"><i data-lucide="save" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Сохранить</button>
+            </div>
+          </div>
+
+          <!-- 3: Сведения об обучении -->
+          <div class="tab-panel" id="panel-3">
+            <div class="form-card">
+              <div class="form-grid-2">
+
+                <!-- Дата поступления -->
+                <div class="form-field">
+                  <label>ДАТА ПОСТУПЛЕНИЯ В ДАННУЮ ОВПО</label>
+                  <input type="date" id="edu_date_in" value="2026-06-25">
+                </div>
+
+                <!-- Академическая степень -->
+                <div class="form-field">
+                  <label>АКАДЕМИЧЕСКАЯ СТЕПЕНЬ <span class="req">*</span></label>
+                  <select id="edu_degree">
+                    <option value="">— Выберите —</option>
+                    <option>Бакалавр</option>
+                    <option selected>Магистрант по профильному направлению</option>
+                    <option>Магистрант по научно-педагогическому направлению</option>
+                    <option>Доктор PhD</option>
+                    <option>Специалист</option>
+                  </select>
+                </div>
+
+                <!-- Форма обучения -->
+                <div class="form-field">
+                  <label>ФОРМА ОБУЧЕНИЯ <span class="req">*</span></label>
+                  <select id="edu_form">
+                    <option value="">— Выберите —</option>
+                    <option>Бакалавриат очная первое высшее образование</option>
+                    <option>Бакалавриат очная второе высшее образование</option>
+                    <option>Бакалавриат заочная</option>
+                    <option selected>Магистратура(пол года)</option>
+                    <option>Магистратура очная</option>
+                    <option>Магистратура заочная</option>
+                    <option>Докторантура</option>
+                  </select>
+                </div>
+
+                <!-- Специальность / ГОП -->
+                <div class="form-field">
+                  <label>СПЕЦИАЛЬНОСТЬ/ГРУППА ОБРАЗОВАТЕЛЬНЫХ ПРОГРАММ <span class="req">*</span></label>
+                  <select id="edu_specialty"><option value="">— Выберите —</option></select>
+                </div>
+
+                <!-- Специализация / ОП -->
+                <div class="form-field">
+                  <label>СПЕЦИАЛИЗАЦИЯ/ОБРАЗОВАТЕЛЬНАЯ ПРОГРАММА <span class="req">*</span></label>
+                  <select id="edu_op"><option value="">— Выберите —</option></select>
+                </div>
+
+                <!-- Язык обучения -->
+                <div class="form-field">
+                  <label>ЯЗЫК ОБУЧЕНИЯ <span class="req">*</span></label>
+                  <select id="edu_lang">
+                    <option value="">— Выберите —</option>
+                    <option>Казахский</option>
+                    <option>Русский</option>
+                    <option>Английский</option>
+                  </select>
+                </div>
+
+                <!-- Курс -->
+                <div class="form-field">
+                  <label>КУРС <span class="req">*</span></label>
+                  <select id="edu_course">
+                    <option value="">— Выберите —</option>
+                    <option>1</option><option>2</option><option>3</option><option>4</option>
+                  </select>
+                </div>
+
+                <!-- Факультет -->
+                <div class="form-field">
+                  <label>ФАКУЛЬТЕТ</label>
+                  <select id="edu_faculty"><option value="">— Загрузка... —</option></select>
+                </div>
+
+                <!-- Группа -->
+                <div class="form-field">
+                  <label>ГРУППА <span class="req">*</span></label>
+                  <input type="text" id="edu_group" placeholder="Например: МНЮП-25">
+                </div>
+
+                <!-- Учебный план -->
+                <div class="form-field">
+                  <label>УЧЕБНЫЙ ПЛАН</label>
+                  <input type="text" id="edu_plan" placeholder="">
+                </div>
+
+                <!-- Форма оплаты -->
+                <div class="form-field">
+                  <label>ФОРМА ОПЛАТЫ <span class="req">*</span></label>
+                  <select id="edu_pay">
+                    <option value="">— Выберите —</option>
+                    <option>Государственный грант</option>
+                    <option>Платная</option>
+                    <option>Иностранный грант</option>
+                  </select>
+                </div>
+
+                <!-- Оплата по графику -->
+                <div class="form-field" style="grid-column:1/-1">
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="edu_pay_schedule">
+                    <span>ОПЛАТА ПО ГРАФИКУ</span>
+                  </label>
+                </div>
+
+                <!-- Условия обучения -->
+                <div class="form-field">
+                  <label>УСЛОВИЯ ОБУЧЕНИЯ</label>
+                  <select id="edu_conditions" disabled style="background:#f9fafb;color:#9ca3af">
+                    <option value=""></option>
+                  </select>
+                </div>
+
+                <!-- Дополнительный статус -->
+                <div class="form-field">
+                  <label>ДОПОЛНИТЕЛЬНЫЙ СТАТУС</label>
+                  <select id="edu_extra_status">
+                    <option>Все</option>
+                    <option>Инвалид</option>
+                    <option>Сирота</option>
+                  </select>
+                </div>
+
+                <!-- Шифр обучающегося -->
+                <div class="form-field">
+                  <label>ШИФР ОБУЧАЮЩЕГОСЯ</label>
+                  <input type="text" id="edu_cipher" placeholder="">
+                </div>
+
+                <!-- Дата выдачи -->
+                <div class="form-field">
+                  <label>ДАТА ВЫДАЧИ ОБУЧАЮЩЕМУСЯ</label>
+                  <input type="date" id="edu_date_issue" value="2026-06-25">
+                </div>
+
+                <!-- Регистрационный номер транскрипта -->
+                <div class="form-field" style="grid-column:1/-1">
+                  <label>РЕГИСТРАЦИОННЫЙ НОМЕР ТРАНСКРИПТА</label>
+                  <input type="text" id="edu_transcript" placeholder="">
+                </div>
+
+                <!-- Зимний прием -->
+                <div class="form-field" style="grid-column:1/-1">
+                  <label class="toggle-label">
+                    <span>ЗИМНИЙ ПРИЕМ</span>
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="edu_winter">
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </label>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn-cancel" onclick="history.back()">Отмена</button>
+              <button class="btn-save" onclick="saveStudent()"><i data-lucide="save" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Сохранить</button>
+            </div>
+          </div>
+
+          <!-- 4: Предыдущее образование -->
+          <div class="tab-panel" id="panel-4">
+            <div class="form-card">
+
+              <!-- Тип учреждения + нострификация -->
+              <div class="prev-edu-top">
+                <div class="form-field" style="flex:1">
+                  <label>ОКОНЧИЛ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ <span class="req">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="prev_edu_type" value="school" checked> Школа</label>
+                    <label class="radio-label"><input type="radio" name="prev_edu_type" value="college"> Колледж</label>
+                    <label class="radio-label"><input type="radio" name="prev_edu_type" value="vuz"> ВУЗ</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-grid-2" style="margin-top:18px">
+                <div class="form-field">
+                  <label>№ СВИДЕТЕЛЬСТВА О НОСТРИФИКАЦИИ</label>
+                  <input type="text" id="prev_nostr_num" placeholder="">
+                </div>
+                <div class="form-field">
+                  <label>ДАТА СВИДЕТЕЛЬСТВА О НОСТРИФИКАЦИИ <span class="req">*</span></label>
+                  <input type="date" id="prev_nostr_date" value="2026-06-25">
+                </div>
+              </div>
+
+              <!-- Языковые вкладки -->
+              <div class="lang-tabs-wrap">
+                <div class="lang-tabs">
+                  <button type="button" class="lang-tab active" onclick="switchLangTab(0)">Русский язык</button>
+                  <button type="button" class="lang-tab" onclick="switchLangTab(1)">Казахский язык</button>
+                  <button type="button" class="lang-tab" onclick="switchLangTab(2)">Английский язык</button>
+                </div>
+
+                <!-- RU -->
+                <div class="lang-panel active" id="lpanel-0">
+                  <div class="form-grid-2">
+                    <div class="form-field">
+                      <label>ПОСТУПИЛ(А). НАЗВАНИЕ ВУЗ-А НА РУС. ЯЗ., ГОД</label>
+                      <input type="text" id="prev_vuz_ru">
+                    </div>
+                    <div class="form-field">
+                      <label>ПРЕДЫДУЩИЙ ДОКУМЕНТ ОБ ОБРАЗОВАНИИ НА РУС. ЯЗ.</label>
+                      <input type="text" id="prev_doc_ru">
+                    </div>
+                    <div class="form-field">
+                      <label>ВСТУПИТЕЛЬНЫЕ ИСПЫТАНИЯ</label>
+                      <input type="text" id="prev_exam_ru">
+                    </div>
+                    <div class="form-field">
+                      <label>ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ НА РУССКОМ ЯЗЫКЕ</label>
+                      <input type="text" id="prev_info_ru">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- KZ -->
+                <div class="lang-panel" id="lpanel-1">
+                  <div class="form-grid-2">
+                    <div class="form-field">
+                      <label>ПОСТУПИЛ(А). НАЗВАНИЕ ВУЗ-А НА КАЗ. ЯЗ., ГОД</label>
+                      <input type="text" id="prev_vuz_kz">
+                    </div>
+                    <div class="form-field">
+                      <label>ПРЕДЫДУЩИЙ ДОКУМЕНТ ОБ ОБРАЗОВАНИИ НА КАЗ. ЯЗ.</label>
+                      <input type="text" id="prev_doc_kz">
+                    </div>
+                    <div class="form-field">
+                      <label>ВСТУПИТЕЛЬНЫЕ ИСПЫТАНИЯ</label>
+                      <input type="text" id="prev_exam_kz">
+                    </div>
+                    <div class="form-field">
+                      <label>ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ НА КАЗАХСКОМ ЯЗЫКЕ</label>
+                      <input type="text" id="prev_info_kz">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- EN -->
+                <div class="lang-panel" id="lpanel-2">
+                  <div class="form-grid-2">
+                    <div class="form-field">
+                      <label>ПОСТУПИЛ(А). НАЗВАНИЕ ВУЗ-А НА АНГ. ЯЗ., ГОД</label>
+                      <input type="text" id="prev_vuz_en">
+                    </div>
+                    <div class="form-field">
+                      <label>ПРЕДЫДУЩИЙ ДОКУМЕНТ ОБ ОБРАЗОВАНИИ НА АНГ. ЯЗ.</label>
+                      <input type="text" id="prev_doc_en">
+                    </div>
+                    <div class="form-field">
+                      <label>ВСТУПИТЕЛЬНЫЕ ИСПЫТАНИЯ</label>
+                      <input type="text" id="prev_exam_en">
+                    </div>
+                    <div class="form-field">
+                      <label>ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ НА АНГЛИЙСКОМ ЯЗЫКЕ</label>
+                      <input type="text" id="prev_info_en">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="form-actions">
+              <button class="btn-cancel" onclick="history.back()">Отмена</button>
+              <button class="btn-save" onclick="saveStudent()"><i data-lucide="save" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Сохранить</button>
+            </div>
+          </div>
+
+          <!-- 5: Личные достижения -->
+          <div class="tab-panel" id="panel-5">
+            <div class="form-card" style="padding:0">
+
+              <!-- Горизонтальные подвкладки -->
+              <div class="ach-tabs">
+                <button type="button" class="ach-tab active" onclick="switchAch(0)">Участие в соревнованиях, конкурсах и олимпиадах</button>
+                <button type="button" class="ach-tab" onclick="switchAch(1)">Знание языков</button>
+                <button type="button" class="ach-tab" onclick="switchAch(2)">Увлечения</button>
+                <button type="button" class="ach-tab" onclick="switchAch(3)">Вовлеченность в общественно-полезную деятельность</button>
+                <button type="button" class="ach-tab" onclick="switchAch(4)">Иные достижения</button>
+                <button type="button" class="ach-tab" onclick="switchAch(5)">Нарушения</button>
+                <button type="button" class="ach-tab" onclick="switchAch(6)">Спортивные достижения</button>
+              </div>
+
+              <!-- Участие в соревнованиях -->
+              <div class="ach-panel active" id="ach-0">
+                <div class="ach-panel-body">
+                  <button class="btn-ach-add" onclick="addAchRow('ach-tbl-0')">Добавить</button>
+                  <div class="ach-table-wrap">
+                    <table class="ach-table" id="ach-tbl-0">
+                      <thead><tr>
+                        <th>№</th>
+                        <th>ВИД МЕРОПРИЯТИЯ</th>
+                        <th>ВИД НАПРАВЛЕНИЯ</th>
+                        <th>УРОВЕНЬ МЕРОПРИЯТИЯ</th>
+                        <th>НАИМЕНОВАНИЕ МЕРОПРИЯТИЯ</th>
+                        <th>НАГРАДА</th>
+                        <th>ДАТА ВЫХОДА РЕЗУЛЬТАТОВ</th>
+                        <th>ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ</th>
+                        <th>СКАН-КОПИЯ ПОДТВЕРЖДАЮЩЕГО ДОКУМЕНТА</th>
+                      </tr></thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Знание языков -->
+              <div class="ach-panel" id="ach-1">
+                <div class="ach-panel-body">
+                  <button class="btn-ach-add" onclick="addAchRow('ach-tbl-1')">Добавить</button>
+                  <div class="ach-table-wrap">
+                    <table class="ach-table" id="ach-tbl-1">
+                      <thead><tr>
+                        <th>№</th>
+                        <th>ЯЗЫК</th>
+                        <th>УРОВЕНЬ ВЛАДЕНИЯ</th>
+                        <th>ПОДТВЕРЖДАЮЩИЙ ДОКУМЕНТ</th>
+                        <th>ДАТА ВЫДАЧИ</th>
+                        <th>ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ</th>
+                      </tr></thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Увлечения -->
+              <div class="ach-panel" id="ach-2">
+                <div class="ach-panel-body">
+                  <button class="btn-ach-add" onclick="addAchRow('ach-tbl-2')">Добавить</button>
+                  <div class="ach-table-wrap">
+                    <table class="ach-table" id="ach-tbl-2">
+                      <thead><tr>
+                        <th>№</th>
+                        <th>ВИД УВЛЕЧЕНИЯ</th>
+                        <th>ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ</th>
+                      </tr></thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Общественно-полезная деятельность -->
+              <div class="ach-panel" id="ach-3">
+                <div class="ach-panel-body">
+                  <button class="btn-ach-add" onclick="addAchRow('ach-tbl-3')">Добавить</button>
+                  <div class="ach-table-wrap">
+                    <table class="ach-table" id="ach-tbl-3">
+                      <thead><tr>
+                        <th>№</th>
+                        <th>ВИД ДЕЯТЕЛЬНОСТИ</th>
+                        <th>НАИМЕНОВАНИЕ ОРГАНИЗАЦИИ</th>
+                        <th>ПЕРИОД</th>
+                        <th>ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ</th>
+                        <th>СКАН-КОПИЯ ПОДТВЕРЖДАЮЩЕГО ДОКУМЕНТА</th>
+                      </tr></thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Иные достижения -->
+              <div class="ach-panel" id="ach-4">
+                <div class="ach-panel-body">
+                  <button class="btn-ach-add" onclick="addAchRow('ach-tbl-4')">Добавить</button>
+                  <div class="ach-table-wrap">
+                    <table class="ach-table" id="ach-tbl-4">
+                      <thead><tr>
+                        <th>№</th>
+                        <th>ВИД ДОСТИЖЕНИЯ</th>
+                        <th>ОПИСАНИЕ</th>
+                        <th>ДАТА</th>
+                        <th>СКАН-КОПИЯ ПОДТВЕРЖДАЮЩЕГО ДОКУМЕНТА</th>
+                      </tr></thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Нарушения -->
+              <div class="ach-panel" id="ach-5">
+                <div class="ach-panel-body">
+                  <button class="btn-ach-add" onclick="addAchRow('ach-tbl-5')">Добавить</button>
+                  <div class="ach-table-wrap">
+                    <table class="ach-table" id="ach-tbl-5">
+                      <thead><tr>
+                        <th>№</th>
+                        <th>ВИД НАРУШЕНИЯ</th>
+                        <th>ОПИСАНИЕ</th>
+                        <th>ДАТА</th>
+                        <th>МЕРЫ ВОЗДЕЙСТВИЯ</th>
+                        <th>ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ</th>
+                      </tr></thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Спортивные достижения -->
+              <div class="ach-panel" id="ach-6">
+                <div class="ach-panel-body">
+                  <button class="btn-ach-add" onclick="addAchRow('ach-tbl-6')">Добавить</button>
+                  <div class="ach-table-wrap">
+                    <table class="ach-table" id="ach-tbl-6">
+                      <thead><tr>
+                        <th>№</th>
+                        <th>ВИД СПОРТА</th>
+                        <th>УРОВЕНЬ</th>
+                        <th>НАИМЕНОВАНИЕ СОРЕВНОВАНИЯ</th>
+                        <th>РЕЗУЛЬТАТ</th>
+                        <th>ДАТА</th>
+                        <th>СКАН-КОПИЯ ПОДТВЕРЖДАЮЩЕГО ДОКУМЕНТА</th>
+                      </tr></thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="form-actions">
+              <button class="btn-cancel" onclick="history.back()">Отмена</button>
+              <button class="btn-save" onclick="saveStudent()"><i data-lucide="save" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Сохранить</button>
+            </div>
+          </div>
+
+          <!-- 6: Приказы -->
+          <div class="tab-panel" id="panel-6">
+            <div class="form-card">
+
+              <!-- Поля приёма -->
+              <div class="order-fields">
+                <div class="order-field-row">
+                  <label class="order-field-label">
+                    Номер приказа о зачислении на 1 курс по категории «Прием»
+                    <span class="tooltip-icon" title="Заполняется автоматически при создании приказа">?</span>
+                  </label>
+                  <input type="text" id="ord_num" class="order-field-input">
+                </div>
+                <div class="order-field-row">
+                  <label class="order-field-label">
+                    Дата приказа о зачислении на 1 курс по категории «Прием»
+                    <span class="tooltip-icon" title="Дата подписания приказа">?</span>
+                  </label>
+                  <input type="date" id="ord_date" class="order-field-input" value="2026-06-26">
+                </div>
+              </div>
+
+              <!-- Таблица приказов -->
+              <div class="ach-table-wrap" style="margin-top:16px">
+                <table class="ach-table" id="orders-table">
+                  <thead><tr>
+                    <th style="width:50px">№</th>
+                    <th>НОМЕР И ДАТА ПРИКАЗА</th>
+                    <th>СОДЕРЖАНИЕ</th>
+                    <th style="width:160px">ПРОЕКТ ПРИКАЗА</th>
+                    <th style="width:160px">ВЫПИСКА ИЗ ПРИКАЗА</th>
+                  </tr></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+
+            </div>
+            <div class="form-actions">
+              <button class="btn-cancel" onclick="history.back()">Отмена</button>
+              <button class="btn-save" onclick="saveStudent()"><i data-lucide="save" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Сохранить</button>
+            </div>
+          </div>
+
+          <!-- 7: Трудоустройство -->
+          <div class="tab-panel" id="panel-7">
+            <div class="form-card">
+              <div class="form-grid-2">
+
+                <div class="form-field">
+                  <label>ТИП ЗАНЯТОСТИ</label>
+                  <select id="emp_type">
+                    <option value=""></option>
+                    <option>Трудоустроен по специальности</option>
+                    <option>Трудоустроен не по специальности</option>
+                    <option>Не трудоустроен</option>
+                    <option>Продолжает обучение</option>
+                    <option>Военная служба</option>
+                    <option>Декретный отпуск</option>
+                  </select>
+                </div>
+
+                <div class="form-field">
+                  <label>ПРИЧИНА ТИПА ЗАНЯТОСТИ</label>
+                  <select id="emp_reason">
+                    <option value=""></option>
+                    <option>Собственный выбор</option>
+                    <option>Нет вакансий по специальности</option>
+                    <option>Продолжение образования</option>
+                    <option>Семейные обстоятельства</option>
+                  </select>
+                </div>
+
+                <div class="form-field">
+                  <label>ТИП ОРГАНИЗАЦИИ</label>
+                  <select id="emp_org_type">
+                    <option value=""></option>
+                    <option selected>Другой</option>
+                    <option>Государственная</option>
+                    <option>Частная</option>
+                    <option>Иностранная</option>
+                    <option>Международная</option>
+                  </select>
+                </div>
+
+                <div class="form-field">
+                  <label>УТОЧНЕНИЕ ТИПА ОРГАНИЗАЦИИ</label>
+                  <select id="emp_org_detail">
+                    <option value=""></option>
+                    <option>Малый бизнес</option>
+                    <option>Средний бизнес</option>
+                    <option>Крупный бизнес</option>
+                    <option>НКО</option>
+                  </select>
+                </div>
+
+                <div class="form-field" style="display:flex;align-items:flex-end;gap:16px">
+                  <div style="flex:1">
+                    <label>КУДА ТРУДОУСТРОЕН</label>
+                    <input type="text" id="emp_where" placeholder="">
+                  </div>
+                  <label class="checkbox-label" style="padding-bottom:10px;white-space:nowrap">
+                    <input type="checkbox" id="emp_abroad">
+                    <span>ТРУДОУСТРОЕН В ДРУГОЙ СТРАНЕ</span>
+                  </label>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn-cancel" onclick="history.back()">Отмена</button>
+              <button class="btn-save" onclick="saveStudent()"><i data-lucide="save" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Сохранить</button>
+            </div>
+          </div>
+
+          <!-- 8: Льготы -->
+          <div class="tab-panel" id="panel-8">
+            <div class="form-card">
+
+              <!-- Нет льгот + кнопка -->
+              <div class="benefits-top">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="ben_none" onchange="toggleBenefits(this)">
+                  <span>Нет льгот</span>
+                </label>
+                <button class="btn-ach-add" id="btn-add-benefit" onclick="addBenefitRow()">Добавить льготу</button>
+              </div>
+
+              <!-- Таблица льгот -->
+              <div class="ach-table-wrap" style="margin-top:14px" id="ben-table-wrap">
+                <table class="ach-table" id="ben-table">
+                  <thead><tr>
+                    <th style="width:50px">№</th>
+                    <th>ТИП ЛЬГОТЫ</th>
+                    <th>ДОКУМЕНТ-ОСНОВАНИЕ</th>
+                    <th>ДАТА ДОКУМЕНТА</th>
+                    <th>ДАТА ОКОНЧАНИЯ</th>
+                    <th>ПРИМЕЧАНИЕ</th>
+                    <th style="width:50px"></th>
+                  </tr></thead>
+                  <tbody id="ben-tbody"></tbody>
+                </table>
+              </div>
+
+            </div>
+            <div class="form-actions">
+              <button class="btn-cancel" onclick="history.back()">Отмена</button>
+              <button class="btn-save" onclick="saveStudent()"><i data-lucide="save" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Сохранить</button>
+            </div>
+          </div>
+
+          <!-- 9: Прочее -->
+          <div class="tab-panel" id="panel-9">
+            <div class="form-card">
+
+              <!-- Ссылка воинский учёт -->
+              <a href="#" class="misc-link" onclick="return false;">Дополнительные сведения о воинском учете</a>
+
+              <!-- Трёхъязычное обучение -->
+              <div style="margin: 12px 0 18px">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="misc_trilingual">
+                  <span>Обучается в рамках трёхъязычного обучения</span>
+                </label>
+              </div>
+
+              <div class="form-grid-2">
+
+                <div class="form-field">
+                  <label>ОБЩЕЖИТИЕ <span class="req">*</span></label>
+                  <div class="ss-wrap" id="ss-dorm">
+                    <button type="button" class="ss-trigger" onclick="toggleSS('ss-dorm')">
+                      <span class="ss-value">Не нуждается</span>
+                      <i data-lucide="chevron-down" style="width:14px;height:14px;color:#9ca3af;flex-shrink:0"></i>
+                    </button>
+                    <div class="ss-dropdown">
+                      <input type="text" class="ss-search" placeholder="Поиск..." oninput="filterSS('ss-dorm',this.value)">
+                      <div class="ss-options">
+                        <div class="ss-option active" onclick="selectSS('ss-dorm','Не нуждается')">Не нуждается</div>
+                        <div class="ss-option" onclick="selectSS('ss-dorm','Нуждается')">Нуждается</div>
+                        <div class="ss-option" onclick="selectSS('ss-dorm','Обеспечен')">Обеспечен</div>
+                        <div class="ss-option" onclick="selectSS('ss-dorm','Снят с очереди')">Снят с очереди</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>РАЗРЕШАТЬ ДОСТУП К ТЕСТИРОВАНИЮ С ВНЕШНЕГО IP АДРЕСА</label>
+                  <select id="misc_ext_ip">
+                    <option selected>Нет</option>
+                    <option>Да</option>
+                  </select>
+                </div>
+
+                <div class="form-field">
+                  <label>IP АДРЕС (ДЛЯ ОГРАНИЧЕНИЯ ДОСТУПА К ТЕСТИРОВАНИЮ)</label>
+                  <input type="text" id="misc_ip" placeholder="xxx.xxx.xxx.xxx">
+                </div>
+
+                <div class="form-field">
+                  <label>ДОСТУП К СИСТЕМЕ</label>
+                  <select id="misc_sys_access">
+                    <option value=""></option>
+                    <option>Разрешён</option>
+                    <option>Заблокирован</option>
+                  </select>
+                </div>
+
+                <div class="form-field">
+                  <label>ДОГОВОР ОБ ОКАЗАНИИ ОБРАЗОВАТЕЛЬНЫХ УСЛУГ</label>
+                  <div>
+                    <button type="button" class="btn-download-contract">Скачать</button>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>НОМЕР ДОГОВОРА ОКАЗАНИЯ ОБРАЗОВАТЕЛЬНЫХ УСЛУГ</label>
+                  <input type="text" id="misc_contract_num" value="ФКС/23-26">
+                </div>
+
+                <div class="form-field">
+                  <label>ДАТА ЗАКЛЮЧЕНИЯ ДОГОВОРА ОКАЗАНИЯ ОБРАЗОВАТЕЛЬНЫХ УСЛУГ</label>
+                  <input type="date" id="misc_contract_date" value="2024-08-20">
+                </div>
+
+                <div class="form-field">
+                  <label>НАИМЕНОВАНИЕ БАНКА</label>
+                  <div class="ss-wrap" id="ss-bank">
+                    <button type="button" class="ss-trigger" onclick="toggleSS('ss-bank')">
+                      <span class="ss-value">Нет банка</span>
+                      <i data-lucide="chevron-down" style="width:14px;height:14px;color:#9ca3af;flex-shrink:0"></i>
+                    </button>
+                    <div class="ss-dropdown">
+                      <input type="text" class="ss-search" placeholder="Поиск банка..." oninput="filterSS('ss-bank',this.value)">
+                      <div class="ss-options">
+                        <div class="ss-option active" onclick="selectSS('ss-bank','Нет банка')">Нет банка</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Народный Банк Казахстана»')">АО «Народный Банк Казахстана»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Kaspi Bank»')">АО «Kaspi Bank»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «ForteBank»')">АО «ForteBank»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Банк ЦентрКредит»')">АО «Банк ЦентрКредит»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «First Heartland Jusan Bank»')">АО «First Heartland Jusan Bank»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Нурбанк»')">АО «Нурбанк»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Евразийский Банк»')">АО «Евразийский Банк»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Bereke Bank»')">АО «Bereke Bank»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «RBK Bank»')">АО «RBK Bank»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Freedom Bank Kazakhstan»')">АО «Freedom Bank Kazakhstan»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Шинхан Банк Казахстан»')">АО «Шинхан Банк Казахстан»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО ДБ «Банк ВТБ (Казахстан)»')">АО ДБ «Банк ВТБ (Казахстан)»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Исламский банк «Заман-Банк»')">АО «Исламский банк «Заман-Банк»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Хоум Кредит Банк»')">АО «Хоум Кредит Банк»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Ситибанк Казахстан»')">АО «Ситибанк Казахстан»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Альфа-Банк»')">АО «Альфа-Банк»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Tengri Bank»')">АО «Tengri Bank»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Capital Bank Kazakhstan»')">АО «Capital Bank Kazakhstan»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Банк Развития Казахстана»')">АО «Банк Развития Казахстана»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО ДБ «Сбербанк»')">АО ДБ «Сбербанк»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Дочерний Банк «Кыргызстан»')">АО «Дочерний Банк «Кыргызстан»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «Аграрная кредитная корпорация»')">АО «Аграрная кредитная корпорация»</div>
+                        <div class="ss-option" onclick="selectSS('ss-bank','АО «КЗИ Банк»')">АО «КЗИ Банк»</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label>ИИК(IBAN)</label>
+                  <input type="text" id="misc_iban" placeholder="">
+                </div>
+
+                <div class="form-field">
+                  <label>БИК</label>
+                  <input type="text" id="misc_bik" placeholder="" style="background:#f9fafb;color:#9ca3af">
+                </div>
+
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn-cancel" onclick="history.back()">Отмена</button>
+              <button class="btn-save" onclick="saveStudent()"><i data-lucide="save" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Сохранить</button>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Добавить родителя -->
+  <div class="modal-overlay" id="parentOverlay" onclick="closeParentOutside(event)">
+    <div class="modal parent-modal">
+      <div class="modal-header">
+        <span class="modal-title">Добавить родителя / представителя</span>
+        <button class="modal-close" onclick="closeParentModal()"><i data-lucide="x" style="width:18px;height:18px"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label>ФАМИЛИЯ <span class="req">*</span></label>
+            <input type="text" id="p_last" placeholder="">
+          </div>
+          <div class="form-field">
+            <label>ИМЯ <span class="req">*</span></label>
+            <input type="text" id="p_first" placeholder="">
+          </div>
+          <div class="form-field">
+            <label>ОТЧЕСТВО</label>
+            <input type="text" id="p_mid" placeholder="">
+          </div>
+          <div class="form-field">
+            <label>ИИН <span class="req">*</span></label>
+            <input type="text" id="p_iin" placeholder="" maxlength="12">
+          </div>
+          <div class="form-field">
+            <label>МОБИЛЬНЫЙ ТЕЛЕФОН <span class="req">*</span></label>
+            <input type="text" id="p_phone" placeholder="+7 (___) ___-__-__">
+          </div>
+          <div class="form-field">
+            <label>ПОЧТА</label>
+            <input type="email" id="p_email" placeholder="">
+          </div>
+          <div class="form-field">
+            <label>НАСЕЛЁННЫЙ ПУНКТ ПРОЖИВАНИЯ (КАТО)</label>
+            <div class="kato-wrap" id="kato-parent">
+              <input type="text" class="kato-input" placeholder="Начните вводить населённый пункт" autocomplete="off"
+                oninput="katoSearch(this,'kato-parent')" onfocus="katoSearch(this,'kato-parent')">
+              <input type="hidden" class="kato-value">
+              <div class="kato-dropdown"></div>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>АДРЕС</label>
+            <input type="text" id="p_address" placeholder="">
+          </div>
+          <div class="form-field">
+            <label>КОЛИЧЕСТВО ДЕТЕЙ В СЕМЬЕ</label>
+            <input type="number" id="p_children" placeholder="" min="0">
+          </div>
+          <div class="form-field">
+            <label>МЕСТО РАБОТЫ</label>
+            <input type="text" id="p_workplace" placeholder="">
+          </div>
+          <div class="form-field">
+            <label>ДОЛЖНОСТЬ</label>
+            <input type="text" id="p_position" placeholder="">
+          </div>
+          <div class="form-field">
+            <label>СТЕПЕНЬ РОДСТВА</label>
+            <select id="p_relation">
+              <option value="">— Выберите —</option>
+              <option>Мать</option>
+              <option>Отец</option>
+              <option>Опекун</option>
+              <option>Попечитель</option>
+              <option>Бабушка</option>
+              <option>Дедушка</option>
+              <option>Другое</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>ДОКУМЕНТ, УДОСТОВЕРЯЮЩИЙ ЛИЧНОСТЬ</label>
+            <select id="p_doc_type">
+              <option value="">— Выберите —</option>
+              <option>Удостоверение личности</option>
+              <option>Паспорт</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>НОМЕР ДОКУМЕНТА, УДОСТОВЕРЯЮЩЕГО ЛИЧНОСТЬ</label>
+            <input type="text" id="p_doc_num" placeholder="">
+          </div>
+          <div class="form-field">
+            <label>ОРГАН, ВЫДАВШИЙ УДОСТОВЕРЕНИЕ</label>
+            <input type="text" id="p_doc_issuer" placeholder="">
+          </div>
+          <div class="form-field">
+            <label>ДАТА ВЫДАЧИ ДОКУМЕНТА</label>
+            <input type="date" id="p_doc_date">
+          </div>
+          <div class="form-field">
+            <label>СРОК ДЕЙСТВИЯ ДОКУМЕНТА</label>
+            <input type="date" id="p_doc_expiry">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn-cancel" onclick="closeParentModal()">Отмена</button>
+        <button class="modal-btn-save" onclick="saveParent()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+

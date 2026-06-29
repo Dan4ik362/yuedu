@@ -1,0 +1,118 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #d0d0d0; font-family: 'Inter', sans-serif; }
+
+.cert-page-wrap { display: flex; flex-direction: column; align-items: center; }
+
+/* ACTION BUTTONS */
+.no-print { display: flex; gap: 10px; padding: 10px 20px; background: #2d2d2d; width: 100%; position: sticky; top: 0; z-index: 10; }
+.cert-back-btn { background: #444; border: 1px solid #666; color: #fff; padding: 7px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; }
+.cert-back-btn:hover { background: #555; }
+.cert-print-btn { background: #1a56db; color: #fff; border: none; padding: 7px 18px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; margin-left: auto; }
+.cert-print-btn:hover { background: #1343b0; }
+
+/* PAPER — A4 альбомный */
+.cert-paper {
+  width: 297mm;
+  min-height: 210mm;
+  max-height: 210mm;
+  overflow: hidden;
+  background: #fff;
+  padding: 10mm 18mm 16mm;
+  border-top: 5px solid #002080;
+  border-bottom: 5px solid #002080;
+  margin: 16px auto;
+  box-shadow: 0 4px 24px rgba(0,0,0,.3);
+  position: relative;
+}
+
+/* HEADER */
+.cert-header { display: flex; justify-content: center; margin-bottom: 4px; }
+.cert-logo-main { height: 60px; object-fit: contain; }
+
+.cert-univ-kz { text-align: center; font-size: 17px; color: #222; margin-top: 10px; font-weight: 400; line-height: 1.4; }
+.cert-univ-kz2 { text-align: center; font-size: 16px; color: #444; margin-top: 1px; font-weight: 400; }
+
+/* КУӘЛІК */
+.cert-title-kualik {
+  font-family: 'Philosopher', serif;
+  font-style: italic;
+  font-size: 40px;
+  font-weight: 400;
+  text-align: center;
+  color: #111;
+  margin: 6px 0 2px;
+  letter-spacing: 5px;
+}
+
+/* CMD */
+.cert-cmd { text-align: center; font-size: 17px; color: #555; margin-bottom: 4px; }
+
+/* ФИО */
+.cert-fio {
+  font-family: 'Philosopher', serif;
+  font-style: italic;
+  font-size: 40px;
+  font-weight: 400;
+  text-align: center;
+  color: #111;
+  margin: 4px 0 8px;
+  line-height: 1.2;
+}
+
+/* СПЕЦИАЛЬНОСТЬ */
+.cert-specialty {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 400;
+  color: #111;
+  margin-bottom: 3px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: .2px;
+}
+.cert-spec-sub { text-align: center; font-size: 16px; color: #333; margin-bottom: 10px; }
+
+/* SECTION TITLE */
+.cert-section-title { font-size: 14px; font-weight: 400; text-align: center; color: #222; margin-bottom: 4px; }
+
+/* TABLE */
+.cert-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.cert-table th { background: transparent; border: none; border-bottom: 1px solid #555; padding: 3px 5px; text-align: center; font-weight: 400; color: #222; }
+.cert-table td { border: none; padding: 2px 5px; color: #222; }
+.cert-table td:first-child, .cert-table th:first-child { text-align: center; width: 20px; }
+.cert-table td:nth-child(3), .cert-table td:nth-child(4),
+.cert-table td:nth-child(5), .cert-table td:nth-child(6), .cert-table td:nth-child(7) { text-align: center; }
+
+/* SIGNATURES */
+.cert-signatures { display: flex; justify-content: center; align-items: flex-end; gap: 48px; margin-top: 40px; }
+.cert-sig-item { display: flex; flex-direction: column; align-items: center; }
+.cert-sig-space { height: 36px; }
+.cert-sig-logo { display: flex; justify-content: flex-end; align-items: flex-end; padding-bottom: 4px; }
+.cert-sig-line { width: 100%; height: 1px; background: #333; }
+.cert-sig-label { font-size: 8px; font-weight: 700; letter-spacing: .4px; text-align: center; color: #111; margin-top: 3px; text-transform: uppercase; }
+
+/* FOOTER */
+.cert-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid #ccc; padding-top: 5px;
+  position: absolute; bottom: 8mm; left: 18mm; right: 18mm;
+}
+.cert-footer-cmd, .cert-footer-city, .cert-footer-reg { font-size: 9px; color: #555; }
+.cert-footer-city { font-weight: 600; }
+
+/* PRINT */
+@page { size: A4 landscape; margin: 0; }
+@media print {
+  body { background: #fff; }
+  .no-print { display: none !important; }
+  .cert-page-wrap { padding: 0; }
+  .cert-paper {
+    margin: 0;
+    box-shadow: none;
+    width: 297mm;
+    min-height: 210mm;
+    max-height: 210mm;
+    padding: 10mm 18mm 8mm;
+    page-break-after: always;
+  }
+}

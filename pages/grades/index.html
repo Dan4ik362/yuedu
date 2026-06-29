@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Учебные планы — YUEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../../assets/img/logo.png" alt="YUEdu" class="logo-img">
+      <span class="logo-text">YUEdu</span>
+    </div>
+    <div class="sidebar-user">
+      <div class="user-avatar-big">ИИ</div>
+      <div class="user-info">
+        <div class="user-name">Иванов Иван</div>
+        <div class="user-role">Администратор</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="../main/" class="nav-item"><i data-lucide="home" class="nav-icon"></i><span class="nav-label">Главная</span></a>
+      <a href="../schedule/" class="nav-item"><i data-lucide="calendar" class="nav-icon"></i><span class="nav-label">Расписание</span></a>
+      <a href="../faculties/" class="nav-item"><i data-lucide="building-2" class="nav-icon"></i><span class="nav-label">Факультеты</span></a>
+      <a href="../departments/" class="nav-item"><i data-lucide="layers" class="nav-icon"></i><span class="nav-label">Кафедры</span></a>
+      <a href="../specialties/" class="nav-item"><i data-lucide="graduation-cap" class="nav-icon"></i><span class="nav-label">Специальности</span></a>
+      <a href="../teachers/" class="nav-item"><i data-lucide="users" class="nav-icon"></i><span class="nav-label">Преподаватели</span></a>
+      <a href="../students/" class="nav-item"><i data-lucide="user-check" class="nav-icon"></i><span class="nav-label">Обучающиеся</span></a>
+      <a href="#" class="nav-item active"><i data-lucide="clipboard-list" class="nav-icon"></i><span class="nav-label">Учебные планы</span></a>
+      <a href="../register/" class="nav-item"><i data-lucide="user-plus" class="nav-icon"></i><span class="nav-label">Регистрация</span></a>
+    </nav>
+    <div class="sidebar-account">
+      <div class="account-label">АККАУНТ</div>
+      <a href="#" class="nav-item"><i data-lucide="settings" class="nav-icon"></i><span class="nav-label">Настройки</span></a>
+      <a href="../login/" class="nav-item logout"><i data-lucide="log-out" class="nav-icon"></i><span class="nav-label">Выйти</span></a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main" id="main">
+
+    <header class="topbar">
+      <div class="topbar-right">
+        <button class="icon-btn"><i data-lucide="bell" style="width:18px;height:18px;stroke-width:1.8"></i><span class="badge">3</span></button>
+        <div class="lang-switcher">
+          <button class="lang active">RU</button>
+          <button class="lang">KZ</button>
+          <button class="lang">EN</button>
+        </div>
+        <button class="appmap-btn"><i data-lucide="grid" style="width:16px;height:16px;stroke-width:1.8"></i> Карта приложения</button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <div class="breadcrumb">
+        <a href="../main/">Главная</a>
+        <span class="bc-sep">›</span>
+        <span>Учебные планы</span>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="grades-toolbar">
+        <button class="btn-red" onclick="openAddModal()"><i data-lucide="plus" style="width:14px;height:14px;margin-right:6px"></i>Добавить</button>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters-block">
+        <div class="filter-row">
+          <div class="filter-group">
+            <label>ПОИСК</label>
+            <div class="search-wrap">
+              <input type="text" id="filterSearch" placeholder="Дисциплина, группа..." oninput="applyFilters()">
+              <button class="search-btn" onclick="applyFilters()"><i data-lucide="search" style="width:15px;height:15px;stroke-width:2"></i></button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label>ФАКУЛЬТЕТ</label>
+            <select id="filterFaculty" onchange="applyFilters()"><option value="">Все</option></select>
+          </div>
+          <div class="filter-group">
+            <label>СПЕЦИАЛИЗАЦИЯ</label>
+            <select id="filterSpec" onchange="applyFilters()">
+              <option value="">Все</option>
+              <option value="M078">M078 — Право</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>СПЕЦИАЛЬНОСТЬ</label>
+            <select id="filterOp" onchange="applyFilters()">
+              <option value="">Все</option>
+              <option value="7M04201">7М04201 — Юриспруденция</option>
+            </select>
+          </div>
+        </div>
+        <div class="filter-row" style="grid-template-columns:1fr 3fr">
+          <div class="filter-group">
+            <label>ГРУППА</label>
+            <input type="text" id="filterGroup" placeholder="Например: МНЮП-25" oninput="applyFilters()">
+          </div>
+        </div>
+      </div>
+
+      <!-- Found + Pagination -->
+      <div class="results-bar">
+        <span class="found-count">Найдено: <strong id="foundCount">0</strong></span>
+        <div class="pagination" id="pagination"></div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <table class="grades-table">
+          <thead>
+            <tr>
+              <th style="width:32px"></th>
+              <th>ФАКУЛЬТЕТ</th>
+              <th>СПЕЦИАЛИЗАЦИЯ</th>
+              <th>СПЕЦИАЛЬНОСТЬ</th>
+              <th>ГРУППА</th>
+              <th>КРЕДИТЫ</th>
+              <th style="width:80px"></th>
+            </tr>
+          </thead>
+          <tbody id="journalTableBody">
+            <tr><td></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ADD MODAL -->
+  <div class="modal-overlay" id="addModal" onclick="closeAddModal(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Добавить учебный план</span>
+        <button class="modal-close" onclick="closeAddModal()"><i data-lucide="x" style="width:16px;height:16px"></i></button>
+      </div>
+      <div class="modal-body">
+        <!-- Top fields row 1 -->
+        <div class="modal-fields">
+          <div class="modal-field">
+            <label>СПЕЦИАЛИЗАЦИЯ</label>
+            <select id="m_spec" onchange="onSpecChange()">
+              <option value="">— Выберите —</option>
+              <option value="M078">M078 — Право</option>
+            </select>
+          </div>
+          <div class="modal-field">
+            <label>СПЕЦИАЛЬНОСТЬ</label>
+            <select id="m_op">
+              <option value="">— Выберите специализацию —</option>
+            </select>
+          </div>
+          <div class="modal-field">
+            <label>ГРУППА</label>
+            <input type="text" id="m_group" placeholder="Например: ЮР-25-1">
+          </div>
+        </div>
+        <!-- Top fields row 2 -->
+        <div class="modal-fields" style="grid-template-columns:1fr;margin-top:-8px;">
+          <div class="modal-field">
+            <label>ФАКУЛЬТЕТ</label>
+            <select id="m_faculty">
+              <option value="">— Загрузка... —</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Disciplines table -->
+        <div class="modal-subheader">
+          <span>Дисциплины</span>
+          <button class="btn-add-row" onclick="addDiscRow()"><i data-lucide="plus" style="width:12px;height:12px;margin-right:4px"></i>Добавить строку</button>
+        </div>
+        <div class="disc-table-wrap">
+          <table class="disc-table">
+            <thead><tr><th>НАЗВАНИЕ ПРЕДМЕТА</th><th>КРЕДИТЫ</th><th>ПРЕПОДАВАТЕЛЬ</th><th></th></tr></thead>
+            <tbody id="discBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Practice table -->
+        <div class="modal-subheader" style="margin-top:18px">
+          <span>Практика</span>
+          <button class="btn-add-row" onclick="addPracticeRow()"><i data-lucide="plus" style="width:12px;height:12px;margin-right:4px"></i>Добавить строку</button>
+        </div>
+        <div class="disc-table-wrap">
+          <table class="disc-table">
+            <thead><tr><th>НАЗВАНИЕ ПРАКТИКИ</th><th>КРЕДИТЫ</th><th>ПРЕПОДАВАТЕЛЬ</th><th></th></tr></thead>
+            <tbody id="practiceBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-outline" onclick="closeAddModal()">Отмена</button>
+        <button class="btn-red" onclick="saveJournalEntry()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

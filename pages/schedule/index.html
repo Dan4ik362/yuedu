@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Расписание — YUEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../../assets/img/logo.png" alt="YUEdu" class="logo-img">
+      <span class="logo-text">YUEdu</span>
+    </div>
+    <div class="sidebar-user">
+      <div class="user-avatar-big">ИИ</div>
+      <div class="user-info">
+        <div class="user-name">Иванов Иван</div>
+        <div class="user-role">Администратор</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="../main/" class="nav-item"><i data-lucide="home" class="nav-icon"></i><span class="nav-label">Главная</span></a>
+      <a href="#" class="nav-item active"><i data-lucide="calendar" class="nav-icon"></i><span class="nav-label">Расписание</span></a>
+      <a href="../faculties/" class="nav-item"><i data-lucide="building-2" class="nav-icon"></i><span class="nav-label">Факультеты</span></a>
+      <a href="../departments/" class="nav-item"><i data-lucide="layers" class="nav-icon"></i><span class="nav-label">Кафедры</span></a>
+      <a href="../specialties/" class="nav-item"><i data-lucide="graduation-cap" class="nav-icon"></i><span class="nav-label">Специальности</span></a>
+      <a href="../teachers/" class="nav-item"><i data-lucide="users" class="nav-icon"></i><span class="nav-label">Преподаватели</span></a>
+      <a href="../students/" class="nav-item"><i data-lucide="user-check" class="nav-icon"></i><span class="nav-label">Обучающиеся</span></a>
+            <a href="../certificates/" class="nav-item"><i data-lucide="award" class="nav-icon"></i><span class="nav-label">Сертификаты</span></a>
+      <a href="../grades/" class="nav-item"><i data-lucide="clipboard-list" class="nav-icon"></i><span class="nav-label">Учебные планы</span></a>
+      <a href="../register/" class="nav-item"><i data-lucide="user-plus" class="nav-icon"></i><span class="nav-label">Регистрация</span></a>
+    </nav>
+    <div class="sidebar-account">
+      <div class="account-label">АККАУНТ</div>
+      <a href="#" class="nav-item"><i data-lucide="settings" class="nav-icon"></i><span class="nav-label">Настройки</span></a>
+      <a href="../login/" class="nav-item logout"><i data-lucide="log-out" class="nav-icon"></i><span class="nav-label">Выйти</span></a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main" id="main">
+
+    <header class="topbar">
+      <div class="topbar-right">
+        <button class="icon-btn"><i data-lucide="bell" style="width:18px;height:18px;stroke-width:1.8"></i><span class="badge">3</span></button>
+        <div class="lang-switcher">
+          <button class="lang active">RU</button>
+          <button class="lang">KZ</button>
+          <button class="lang">EN</button>
+        </div>
+        <button class="appmap-btn"><i data-lucide="grid" style="width:16px;height:16px;stroke-width:1.8"></i> Карта приложения</button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <div class="breadcrumb">
+        <a href="../main/">Главная</a>
+        <span class="bc-sep">›</span>
+        <span>Расписание</span>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="sched-toolbar">
+        <div class="week-nav">
+          <button class="week-btn" onclick="changeWeek(-1)"><i data-lucide="chevron-left" style="width:16px;height:16px"></i></button>
+          <span class="week-label" id="weekLabel"></span>
+          <button class="week-btn" onclick="changeWeek(1)"><i data-lucide="chevron-right" style="width:16px;height:16px"></i></button>
+          <button class="today-btn" onclick="goToday()">Сегодня</button>
+        </div>
+        <div class="view-tabs">
+          <button class="view-tab active">Неделя</button>
+          <button class="view-tab">День</button>
+          <button class="view-tab">Месяц</button>
+        </div>
+      </div>
+
+      <!-- Schedule grid -->
+      <div class="sched-wrap">
+        <div class="sched-grid">
+
+          <!-- Header row: days -->
+          <div class="sched-time-col"></div>
+          <div class="sched-day-header" id="day-0"></div>
+          <div class="sched-day-header" id="day-1"></div>
+          <div class="sched-day-header" id="day-2"></div>
+          <div class="sched-day-header" id="day-3"></div>
+          <div class="sched-day-header" id="day-4"></div>
+          <div class="sched-day-header weekend" id="day-5"></div>
+          <div class="sched-day-header weekend" id="day-6"></div>
+
+          <!-- Time slots -->
+          <div class="sched-time">08:00</div>
+          <div class="sched-cell"></div><div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell weekend"></div><div class="sched-cell weekend"></div>
+
+          <div class="sched-time">09:00</div>
+          <div class="sched-cell"></div><div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell weekend"></div><div class="sched-cell weekend"></div>
+
+          <div class="sched-time">10:00</div>
+          <div class="sched-cell"></div><div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell weekend"></div><div class="sched-cell weekend"></div>
+
+          <div class="sched-time">11:00</div>
+          <div class="sched-cell"></div><div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell weekend"></div><div class="sched-cell weekend"></div>
+
+          <div class="sched-time">12:00</div>
+          <div class="sched-cell"></div><div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell weekend"></div><div class="sched-cell weekend"></div>
+
+          <div class="sched-time">13:00</div>
+          <div class="sched-cell"></div><div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell weekend"></div><div class="sched-cell weekend"></div>
+
+          <div class="sched-time">14:00</div>
+          <div class="sched-cell"></div><div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell weekend"></div><div class="sched-cell weekend"></div>
+
+          <div class="sched-time">15:00</div>
+          <div class="sched-cell"></div><div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell weekend"></div><div class="sched-cell weekend"></div>
+
+          <div class="sched-time">16:00</div>
+          <div class="sched-cell"></div><div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell weekend"></div><div class="sched-cell weekend"></div>
+
+          <div class="sched-time">17:00</div>
+          <div class="sched-cell"></div><div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell weekend"></div><div class="sched-cell weekend"></div>
+
+          <div class="sched-time">18:00</div>
+          <div class="sched-cell"></div><div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell"></div><div class="sched-cell"></div>
+          <div class="sched-cell weekend"></div><div class="sched-cell weekend"></div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+

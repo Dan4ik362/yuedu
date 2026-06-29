@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Обучающиеся — YUEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../../assets/img/logo.png" alt="YUEdu" class="logo-img">
+      <span class="logo-text">YUEdu</span>
+    </div>
+    <div class="sidebar-user">
+      <div class="user-avatar-big">ИИ</div>
+      <div class="user-info">
+        <div class="user-name">Иванов Иван</div>
+        <div class="user-role">Администратор</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="../main/" class="nav-item"><i data-lucide="home" class="nav-icon"></i><span class="nav-label">Главная</span></a>
+      <a href="../schedule/" class="nav-item"><i data-lucide="calendar" class="nav-icon"></i><span class="nav-label">Расписание</span></a>
+      <a href="../faculties/" class="nav-item"><i data-lucide="building-2" class="nav-icon"></i><span class="nav-label">Факультеты</span></a>
+      <a href="../departments/" class="nav-item"><i data-lucide="layers" class="nav-icon"></i><span class="nav-label">Кафедры</span></a>
+      <a href="../specialties/" class="nav-item"><i data-lucide="graduation-cap" class="nav-icon"></i><span class="nav-label">Специальности</span></a>
+      <a href="#" class="nav-item"><i data-lucide="users" class="nav-icon"></i><span class="nav-label">Преподаватели</span></a>
+      <a href="#" class="nav-item active"><i data-lucide="user-check" class="nav-icon"></i><span class="nav-label">Обучающиеся</span></a>
+      <a href="../grades/" class="nav-item"><i data-lucide="clipboard-list" class="nav-icon"></i><span class="nav-label">Учебные планы</span></a>
+      <a href="../certificates/" class="nav-item"><i data-lucide="award" class="nav-icon"></i><span class="nav-label">Сертификаты</span></a>
+      <a href="../register/" class="nav-item"><i data-lucide="user-plus" class="nav-icon"></i><span class="nav-label">Регистрация</span></a>
+    </nav>
+    <div class="sidebar-account">
+      <div class="account-label">АККАУНТ</div>
+      <a href="#" class="nav-item"><i data-lucide="settings" class="nav-icon"></i><span class="nav-label">Настройки</span></a>
+      <a href="../login/" class="nav-item logout"><i data-lucide="log-out" class="nav-icon"></i><span class="nav-label">Выйти</span></a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main" id="main">
+
+    <header class="topbar">
+      <div class="topbar-right">
+        <button class="icon-btn"><i data-lucide="bell" style="width:18px;height:18px;stroke-width:1.8"></i><span class="badge">3</span></button>
+        <div class="lang-switcher">
+          <button class="lang active">RU</button>
+          <button class="lang">KZ</button>
+          <button class="lang">EN</button>
+        </div>
+        <button class="appmap-btn"><i data-lucide="grid" style="width:16px;height:16px;stroke-width:1.8"></i> Карта приложения</button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb">
+        <a href="../main/">ГЛАВНАЯ</a>
+        <span class="bc-sep">›</span>
+        <span>Обучающиеся</span>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions-bar">
+        <button class="btn-outline" onclick="openAddStudentModal()"><i data-lucide="user-plus" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Добавить обучающегося</button>
+        <button class="btn-green" onclick="downloadReport()"><i data-lucide="download" style="width:14px;height:14px;margin-right:6px;vertical-align:middle"></i>Скачать отчёт</button>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters-block">
+        <div class="filter-row">
+          <div class="filter-group wide">
+            <label>ПОИСК</label>
+            <div class="search-wrap">
+              <input type="text" placeholder="Введите Ф.И.О. или ИИН">
+              <button class="search-btn"><i data-lucide="search" style="width:16px;height:16px;stroke-width:2"></i></button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label>ВЫБЕРИТЕ ФАКУЛЬТЕТ</label>
+            <select><option>Все</option><option>Информационные технологии</option><option>Экономика и бизнес</option><option>Право</option></select>
+          </div>
+          <div class="filter-group">
+            <label>ВЫБЕРИТЕ КАФЕДРУ</label>
+            <select><option>Все</option><option>Кафедра ИТ</option><option>Кафедра математики</option></select>
+          </div>
+          <div class="filter-group">
+            <label>СПЕЦИАЛЬНОСТЬ/ГОП</label>
+            <select><option>Все</option><option>Туризм</option><option>Химия</option><option>Нефтяная инженерия</option></select>
+          </div>
+        </div>
+        <div class="filter-row">
+          <div class="filter-group">
+            <label>СПЕЦИАЛИЗАЦИЯ/ОП</label>
+            <select><option>Все</option></select>
+          </div>
+          <div class="filter-group">
+            <label>ГРУППА</label>
+            <select><option>Все</option><option>ИТ-21-1</option><option>ЭК-22-2</option></select>
+          </div>
+          <div class="filter-group">
+            <label>КУРС</label>
+            <select><option>Все</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+          </div>
+          <div class="filter-group">
+            <label>АКАДЕМИЧЕСКАЯ СТЕПЕНЬ</label>
+            <select><option>Все</option><option>Бакалавр</option><option>Магистр</option></select>
+          </div>
+        </div>
+        <div class="filter-expand">
+          <a href="#" onclick="return false;">Расширенный поиск <i data-lucide="chevron-down" style="width:14px;height:14px;vertical-align:middle"></i></a>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <table class="students-table">
+          <thead>
+            <tr>
+              <th class="col-check"><input type="checkbox"></th>
+              <th>ФАМИЛИЯ И.О.</th>
+              <th>ФОРМА ОПЛАТЫ</th>
+              <th>СПЕЦИАЛЬНОСТЬ / ГРУППА ОП</th>
+              <th>СПЕЦИАЛИЗАЦИЯ / ОП</th>
+              <th>ДАТА РОЖДЕНИЯ</th>
+              <th>ДАТА ЗАЧИСЛЕНИЯ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><input type="checkbox"></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><input type="checkbox"></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><input type="checkbox"></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><input type="checkbox"></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><input type="checkbox"></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

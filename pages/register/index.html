@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация — EduSystem</title>
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+
+      <div class="auth-header">
+        <div class="logo-block">
+          <div class="logo-icon">E</div>
+          <span class="logo-text">EduSystem</span>
+        </div>
+        <h1>Регистрация</h1>
+        <p>Заполните данные для создания аккаунта</p>
+      </div>
+
+      <form class="auth-form" action="#" method="POST">
+
+        <!-- Шаг-индикатор -->
+        <div class="steps">
+          <div class="step active">
+            <div class="step-dot">1</div>
+            <span>Личные данные</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="step">
+            <div class="step-dot">2</div>
+            <span>Учебная информация</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="step">
+            <div class="step-dot">3</div>
+            <span>Безопасность</span>
+          </div>
+        </div>
+
+        <!-- Блок 1: Личные данные -->
+        <div class="form-section">
+          <h2 class="section-title">Личные данные</h2>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="last_name">Фамилия <span class="required">*</span></label>
+              <input type="text" id="last_name" name="last_name" placeholder="Иванов" required>
+            </div>
+            <div class="form-group">
+              <label for="first_name">Имя <span class="required">*</span></label>
+              <input type="text" id="first_name" name="first_name" placeholder="Иван" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="middle_name">Отчество</label>
+            <input type="text" id="middle_name" name="middle_name" placeholder="Иванович">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="iin">ИИН <span class="required">*</span></label>
+              <input type="text" id="iin" name="iin" placeholder="000000000000" maxlength="12" required>
+            </div>
+            <div class="form-group">
+              <label for="birth_date">Дата рождения <span class="required">*</span></label>
+              <input type="date" id="birth_date" name="birth_date" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Номер телефона</label>
+            <div class="input-prefix">
+              <span>+7</span>
+              <input type="tel" id="phone" name="phone" placeholder="700 000 00 00">
+            </div>
+          </div>
+        </div>
+
+        <!-- Блок 2: Учебная информация -->
+        <div class="form-section">
+          <h2 class="section-title">Учебная информация</h2>
+
+          <div class="form-group">
+            <label for="role">Роль <span class="required">*</span></label>
+            <select id="role" name="role" required>
+              <option value="" disabled selected>Выберите роль</option>
+              <option value="student">Студент</option>
+              <option value="teacher">Преподаватель</option>
+              <option value="admin">Администратор</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="faculty">Факультет <span class="required">*</span></label>
+              <select id="faculty" name="faculty" required>
+                <option value="" disabled selected>Выберите факультет</option>
+                <option>Информационные технологии</option>
+                <option>Экономика и бизнес</option>
+                <option>Право</option>
+                <option>Медицина</option>
+                <option>Инженерия</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="group">Группа</label>
+              <input type="text" id="group" name="group" placeholder="ИТ-21-1">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="course">Курс</label>
+              <select id="course" name="course">
+                <option value="" disabled selected>—</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="study_form">Форма обучения</label>
+              <select id="study_form" name="study_form">
+                <option value="" disabled selected>Выберите</option>
+                <option>Очная</option>
+                <option>Заочная</option>
+                <option>Дистанционная</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Блок 3: Безопасность -->
+        <div class="form-section">
+          <h2 class="section-title">Безопасность</h2>
+
+          <div class="form-group">
+            <label for="email">Email <span class="required">*</span></label>
+            <input type="email" id="email" name="email" placeholder="ivanov@university.kz" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="password">Пароль <span class="required">*</span></label>
+              <div class="input-eye">
+                <input type="password" id="password" name="password" placeholder="Минимум 8 символов" required>
+                <button type="button" class="eye-btn" onclick="togglePass('password')">&#128065;</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password_confirm">Подтверждение пароля <span class="required">*</span></label>
+              <div class="input-eye">
+                <input type="password" id="password_confirm" name="password_confirm" placeholder="Повторите пароль" required>
+                <button type="button" class="eye-btn" onclick="togglePass('password_confirm')">&#128065;</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="password-rules">
+            <span class="rule" id="rule-len">✗ Минимум 8 символов</span>
+            <span class="rule" id="rule-upper">✗ Заглавная буква</span>
+            <span class="rule" id="rule-num">✗ Цифра</span>
+          </div>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" name="agree" required>
+            <span>Я согласен с <a href="#">условиями использования</a> и <a href="#">политикой конфиденциальности</a></span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-primary">Зарегистрироваться</button>
+
+        <p class="auth-switch">Уже есть аккаунт? <a href="../login/">Войти</a></p>
+
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

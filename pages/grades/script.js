@@ -48,9 +48,14 @@ function loadJournal() { return JSON.parse(localStorage.getItem(JOURNAL_KEY) || 
 function saveJournal(d) { localStorage.setItem(JOURNAL_KEY, JSON.stringify(d)); }
 
 /* ===== SPECIALIZATIONS ===== */
-const SPEC_MAP = {
-  'M078': [{ id: '7M04201', name: '7М04201 — Юриспруденция' }]
-};
+function getSpecMap() {
+  try {
+    const saved = localStorage.getItem('yuedu_spec_map');
+    if (saved) return JSON.parse(saved);
+  } catch {}
+  return { 'M078': [{ id: '7M04201', name: '7М04201 — Юриспруденция' }] };
+}
+const SPEC_MAP = getSpecMap();
 
 function onSpecChange() {
   const val = document.getElementById('m_spec').value;

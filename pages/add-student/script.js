@@ -693,6 +693,8 @@ function restoreAllFields(data) {
 
 /* ===== SAVE ===== */
 function saveStudent() {
+  initEduPanel();
+
   const last  = document.getElementById('f_last')?.value.trim()  || '';
   const first = document.getElementById('f_first')?.value.trim() || '';
   const mid   = document.getElementById('f_mid')?.value.trim()   || '';

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админ панель — YUEdu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="../../assets/img/logo.png" alt="YUEdu" class="logo-img">
+      <span class="logo-text">YUEdu</span>
+    </div>
+    <div class="sidebar-user">
+      <div class="user-avatar-big">АД</div>
+      <div class="user-info">
+        <div class="user-name">Администратор</div>
+        <div class="user-role admin-badge">Админ</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#dashboard"   class="nav-item active" onclick="showSection('dashboard',this)"><i data-lucide="layout-dashboard" class="nav-icon"></i><span class="nav-label">Дашборд</span></a>
+      <a href="#students"    class="nav-item" onclick="showSection('students',this)"><i data-lucide="user-check" class="nav-icon"></i><span class="nav-label">Обучающиеся</span></a>
+      <a href="#teachers"    class="nav-item" onclick="showSection('teachers',this)"><i data-lucide="users" class="nav-icon"></i><span class="nav-label">Преподаватели</span></a>
+      <a href="#journals"    class="nav-item" onclick="showSection('journals',this)"><i data-lucide="clipboard-list" class="nav-icon"></i><span class="nav-label">Учебные планы</span></a>
+      <a href="#certs"       class="nav-item" onclick="showSection('certs',this)"><i data-lucide="award" class="nav-icon"></i><span class="nav-label">Сертификаты</span></a>
+      <a href="#users"       class="nav-item" onclick="showSection('users',this)"><i data-lucide="shield" class="nav-icon"></i><span class="nav-label">Пользователи</span></a>
+      <a href="#specs"       class="nav-item" onclick="showSection('specs',this)"><i data-lucide="graduation-cap" class="nav-icon"></i><span class="nav-label">Специальности</span></a>
+      <a href="#ops"         class="nav-item" onclick="showSection('ops',this)"><i data-lucide="layers" class="nav-icon"></i><span class="nav-label">Специализации</span></a>
+      <a href="#settings"    class="nav-item" onclick="showSection('settings',this)"><i data-lucide="settings" class="nav-icon"></i><span class="nav-label">Настройки</span></a>
+    </nav>
+    <div class="sidebar-account">
+      <div class="account-label">НАВИГАЦИЯ</div>
+      <a href="../main/" class="nav-item"><i data-lucide="home" class="nav-icon"></i><span class="nav-label">Главная система</span></a>
+      <a href="../login/" class="nav-item logout"><i data-lucide="log-out" class="nav-icon"></i><span class="nav-label">Выйти</span></a>
+    </div>
+  </aside>
+
+  <div class="main" id="main">
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <h2 class="page-heading" id="pageHeading">Дашборд</h2>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn"><i data-lucide="bell" style="width:18px;height:18px;stroke-width:1.8"></i></button>
+        <div class="lang-switcher">
+          <button class="lang active">RU</button>
+          <button class="lang">KZ</button>
+          <button class="lang">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- ===== ДАШБОРД ===== -->
+      <section class="section" id="sec-dashboard">
+
+        <div class="stats-grid">
+          <div class="stat-card blue">
+            <div class="stat-icon"><i data-lucide="user-check" style="width:22px;height:22px"></i></div>
+            <div class="stat-info">
+              <div class="stat-value" id="st-students">0</div>
+              <div class="stat-label">Обучающихся</div>
+            </div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-icon"><i data-lucide="users" style="width:22px;height:22px"></i></div>
+            <div class="stat-info">
+              <div class="stat-value" id="st-teachers">0</div>
+              <div class="stat-label">Преподавателей</div>
+            </div>
+          </div>
+          <div class="stat-card purple">
+            <div class="stat-icon"><i data-lucide="clipboard-list" style="width:22px;height:22px"></i></div>
+            <div class="stat-info">
+              <div class="stat-value" id="st-journals">0</div>
+              <div class="stat-label">Учебных планов</div>
+            </div>
+          </div>
+          <div class="stat-card orange">
+            <div class="stat-icon"><i data-lucide="award" style="width:22px;height:22px"></i></div>
+            <div class="stat-info">
+              <div class="stat-value" id="st-certs">0</div>
+              <div class="stat-label">Сертификатов</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-row">
+          <div class="dash-block">
+            <div class="block-title">Быстрые действия</div>
+            <div class="quick-actions">
+              <a href="../add-student/" class="qa-btn blue"><i data-lucide="user-plus" style="width:16px;height:16px"></i> Добавить студента</a>
+              <a href="../grades/" class="qa-btn purple"><i data-lucide="plus" style="width:16px;height:16px"></i> Новый учебный план</a>
+              <a href="../teachers/" class="qa-btn green"><i data-lucide="user-plus" style="width:16px;height:16px"></i> Добавить преподавателя</a>
+              <a href="../certificates/" class="qa-btn orange"><i data-lucide="award" style="width:16px;height:16px"></i> Сертификаты</a>
+            </div>
+          </div>
+          <div class="dash-block">
+            <div class="block-title">Последние студенты</div>
+            <table class="mini-table" id="recentStudentsTable">
+              <thead><tr><th>ФИО</th><th>ИИН</th><th>Специальность</th></tr></thead>
+              <tbody id="recentStudentsTbody">
+                <tr><td colspan="3" class="empty-cell">Нет данных</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="dash-block" style="margin-top:20px">
+          <div class="block-title">Хранилище данных (localStorage)</div>
+          <div class="storage-grid" id="storageGrid"></div>
+        </div>
+
+      </section>
+
+      <!-- ===== ОБУЧАЮЩИЕСЯ ===== -->
+      <section class="section hidden" id="sec-students">
+        <div class="section-toolbar">
+          <input type="text" class="search-input" placeholder="Поиск по ФИО или ИИН..." oninput="filterStudentsAdmin(this.value)">
+          <a href="../add-student/" class="btn-primary"><i data-lucide="user-plus" style="width:14px;height:14px"></i> Добавить</a>
+        </div>
+        <table class="data-table" id="studentsAdminTable">
+          <thead>
+            <tr>
+              <th>№</th><th>ФИО</th><th>ИИН</th><th>Специальность</th><th>Группа</th><th>Форма оплаты</th><th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="studentsAdminTbody">
+            <tr><td colspan="7" class="empty-cell">Нет данных</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ===== ПРЕПОДАВАТЕЛИ ===== -->
+      <section class="section hidden" id="sec-teachers">
+        <div class="section-toolbar">
+          <input type="text" class="search-input" placeholder="Поиск преподавателя..." oninput="filterTeachersAdmin(this.value)">
+          <a href="../teachers/" class="btn-primary"><i data-lucide="user-plus" style="width:14px;height:14px"></i> Перейти к разделу</a>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr><th>№</th><th>ФИО</th><th>Должность</th><th>Кафедра</th></tr>
+          </thead>
+          <tbody id="teachersAdminTbody">
+            <tr><td colspan="4" class="empty-cell">Нет данных</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ===== УЧЕБНЫЕ ПЛАНЫ ===== -->
+      <section class="section hidden" id="sec-journals">
+        <div class="section-toolbar">
+          <span class="section-hint">Учебные планы из журнала</span>
+          <a href="../grades/" class="btn-primary"><i data-lucide="plus" style="width:14px;height:14px"></i> Управление планами</a>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr><th>№</th><th>Специализация</th><th>ОП</th><th>Группа</th><th>Факультет</th><th>Дисциплин</th></tr>
+          </thead>
+          <tbody id="journalsAdminTbody">
+            <tr><td colspan="6" class="empty-cell">Нет данных</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ===== СЕРТИФИКАТЫ ===== -->
+      <section class="section hidden" id="sec-certs">
+        <div class="section-toolbar">
+          <span class="section-hint">Выданные сертификаты</span>
+          <a href="../certificates/" class="btn-primary"><i data-lucide="award" style="width:14px;height:14px"></i> Раздел сертификатов</a>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr><th>№</th><th>Студент</th><th>Номер MD</th><th>Тип</th><th>Дата выдачи</th><th>Действия</th></tr>
+          </thead>
+          <tbody id="certsAdminTbody">
+            <tr><td colspan="6" class="empty-cell">Нет данных</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ===== ПОЛЬЗОВАТЕЛИ ===== -->
+      <section class="section hidden" id="sec-users">
+        <div class="section-toolbar">
+          <span class="section-hint">Управление пользователями системы</span>
+          <button class="btn-primary" onclick="openUserModal()"><i data-lucide="plus" style="width:14px;height:14px"></i> Добавить</button>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr><th>№</th><th>Имя</th><th>Логин</th><th>Роль</th><th>Статус</th><th>Действия</th></tr>
+          </thead>
+          <tbody id="usersAdminTbody"></tbody>
+        </table>
+      </section>
+
+      <!-- ===== СПЕЦИАЛЬНОСТИ ===== -->
+      <section class="section hidden" id="sec-specs">
+        <div class="section-toolbar">
+          <input type="text" class="search-input" placeholder="Поиск по коду или названию..." oninput="filterSpecs(this.value)">
+          <button class="btn-primary" onclick="openSpecModal()"><i data-lucide="plus" style="width:14px;height:14px"></i> Добавить</button>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr><th>Код</th><th>Название (RU)</th><th>Название (KZ)</th><th>Название (EN)</th><th>Степень</th><th>Действия</th></tr>
+          </thead>
+          <tbody id="specsTbody">
+            <tr><td colspan="6" class="empty-cell">Нет данных</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ===== СПЕЦИАЛИЗАЦИИ (ОП) ===== -->
+      <section class="section hidden" id="sec-ops">
+        <div class="section-toolbar">
+          <input type="text" class="search-input" placeholder="Поиск по коду или названию..." oninput="filterOps(this.value)">
+          <button class="btn-primary" onclick="openOpModal()"><i data-lucide="plus" style="width:14px;height:14px"></i> Добавить</button>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr><th>Код ОП</th><th>Название (RU)</th><th>Название (KZ)</th><th>Название (EN)</th><th>Специальность</th><th>Действия</th></tr>
+          </thead>
+          <tbody id="opsTbody">
+            <tr><td colspan="6" class="empty-cell">Нет данных</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ===== НАСТРОЙКИ ===== -->
+      <section class="section hidden" id="sec-settings">
+        <div class="settings-grid">
+          <div class="settings-card">
+            <div class="settings-card-title"><i data-lucide="building-2" style="width:16px;height:16px"></i> Организация</div>
+            <div class="field-group">
+              <label>Название университета (RU)</label>
+              <input type="text" class="field-input" id="set_orgRU" value="Каспийский университет технологий и инжиниринга им. Ш. Есенова">
+            </div>
+            <div class="field-group">
+              <label>Название университета (KZ)</label>
+              <input type="text" class="field-input" id="set_orgKZ" value="Ш. Есенов атындағы Каспий технологиялар және инжиниринг университеті">
+            </div>
+            <div class="field-group">
+              <label>Город</label>
+              <input type="text" class="field-input" id="set_city" value="Актау">
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-card-title"><i data-lucide="palette" style="width:16px;height:16px"></i> Интерфейс</div>
+            <div class="field-group">
+              <label>Язык по умолчанию</label>
+              <select class="field-input" id="set_lang">
+                <option value="ru" selected>Русский</option>
+                <option value="kz">Казахский</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>Академический год</label>
+              <input type="text" class="field-input" id="set_year" value="2025–2026">
+            </div>
+          </div>
+
+          <div class="settings-card danger-card">
+            <div class="settings-card-title"><i data-lucide="trash-2" style="width:16px;height:16px"></i> Очистка данных</div>
+            <p class="danger-text">Удалить все данные из хранилища браузера. Действие необратимо.</p>
+            <div class="danger-actions">
+              <button class="btn-danger" onclick="clearData('yuedu_students')">Очистить студентов</button>
+              <button class="btn-danger" onclick="clearData('yuedu_teachers')">Очистить преподавателей</button>
+              <button class="btn-danger" onclick="clearData('yuedu_journal')">Очистить журнал</button>
+              <button class="btn-danger" onclick="clearData('yuedu_certs')">Очистить сертификаты</button>
+              <button class="btn-danger-all" onclick="clearAllData()">Очистить ВСЁ</button>
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-card-title"><i data-lucide="download" style="width:16px;height:16px"></i> Экспорт данных</div>
+            <p style="font-size:13px;color:#6b7280;margin-bottom:16px">Скачать данные из хранилища в формате JSON.</p>
+            <div class="danger-actions">
+              <button class="btn-export" onclick="exportData('yuedu_students','students')">Студенты (JSON)</button>
+              <button class="btn-export" onclick="exportData('yuedu_journal','journal')">Журнал (JSON)</button>
+              <button class="btn-export" onclick="exportData('yuedu_certs','certs')">Сертификаты (JSON)</button>
+              <button class="btn-export" onclick="exportAll()">Экспорт всего</button>
+            </div>
+          </div>
+        </div>
+        <button class="btn-save-settings" onclick="saveSettings()">Сохранить настройки</button>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- МОДАЛ: ДОБАВИТЬ ПОЛЬЗОВАТЕЛЯ -->
+  <div class="modal-overlay" id="userModal" onclick="closeUserOutside(event)">
+    <div class="modal-box">
+      <div class="modal-title">Добавить пользователя</div>
+      <div class="field-group">
+        <label>Имя</label>
+        <input type="text" class="field-input" id="u_name" placeholder="Иванов Иван">
+      </div>
+      <div class="field-group">
+        <label>Логин</label>
+        <input type="text" class="field-input" id="u_login" placeholder="ivanov">
+      </div>
+      <div class="field-group">
+        <label>Пароль</label>
+        <input type="password" class="field-input" id="u_pass" placeholder="••••••••">
+      </div>
+      <div class="field-group">
+        <label>Роль</label>
+        <select class="field-input" id="u_role">
+          <option value="admin">Администратор</option>
+          <option value="manager">Менеджер</option>
+          <option value="teacher">Преподаватель</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeUserModal()">Отмена</button>
+        <button class="btn-primary" onclick="saveUser()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛ: СПЕЦИАЛЬНОСТЬ -->
+  <div class="modal-overlay" id="specModal" onclick="closeSpecOutside(event)">
+    <div class="modal-box">
+      <div class="modal-title" id="specModalTitle">Добавить специальность</div>
+      <div class="field-group">
+        <label>Код специальности</label>
+        <input type="text" class="field-input" id="sp_code" placeholder="M078">
+      </div>
+      <div class="field-group">
+        <label>Название (RU)</label>
+        <input type="text" class="field-input" id="sp_nameRU" placeholder="Право">
+      </div>
+      <div class="field-group">
+        <label>Название (KZ)</label>
+        <input type="text" class="field-input" id="sp_nameKZ" placeholder="Құқық">
+      </div>
+      <div class="field-group">
+        <label>Название (EN)</label>
+        <input type="text" class="field-input" id="sp_nameEN" placeholder="Law">
+      </div>
+      <div class="field-group">
+        <label>Академическая степень</label>
+        <input type="text" class="field-input" id="sp_degree" placeholder="Магистр">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeSpecModal()">Отмена</button>
+        <button class="btn-primary" onclick="saveSpec()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛ: СПЕЦИАЛИЗАЦИЯ (ОП) -->
+  <div class="modal-overlay" id="opModal" onclick="closeOpOutside(event)">
+    <div class="modal-box">
+      <div class="modal-title" id="opModalTitle">Добавить специализацию</div>
+      <div class="field-group">
+        <label>Код ОП</label>
+        <input type="text" class="field-input" id="op_code" placeholder="7M04201">
+      </div>
+      <div class="field-group">
+        <label>Название (RU)</label>
+        <input type="text" class="field-input" id="op_nameRU" placeholder="Юриспруденция">
+      </div>
+      <div class="field-group">
+        <label>Название (KZ)</label>
+        <input type="text" class="field-input" id="op_nameKZ" placeholder="Юриспруденция">
+      </div>
+      <div class="field-group">
+        <label>Название (EN)</label>
+        <input type="text" class="field-input" id="op_nameEN" placeholder="Jurisprudence">
+      </div>
+      <div class="field-group">
+        <label>Специальность (код)</label>
+        <select class="field-input" id="op_spec"></select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeOpModal()">Отмена</button>
+        <button class="btn-primary" onclick="saveOp()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Настройка журнала</title>
+  <style>
+    body { font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f3f4f6; }
+    .box { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,.1); text-align: center; max-width: 500px; }
+    h2 { color: #1d4ed8; margin-bottom: 8px; }
+    p { color: #6b7280; margin-bottom: 24px; }
+    .btn { background: #1d4ed8; color: white; border: none; padding: 12px 28px; border-radius: 8px; font-size: 15px; cursor: pointer; }
+    .btn:hover { background: #1e40af; }
+    .success { color: #16a34a; font-weight: 600; margin-top: 16px; display: none; }
+  </style>
+</head>
+<body>
+<div class="box">
+  <h2>Настройка учебного плана</h2>
+  <p>Нажмите кнопку — запись для группы <strong>МНЮП-25</strong><br>будет добавлена в журнал автоматически.</p>
+  <button class="btn" onclick="setup()">Добавить учебный план</button>
+  <div class="success" id="msg">✓ Готово! Учебный план добавлен. Можете закрыть эту страницу.</div>
+</div>
+<script>
+function setup() {
+  const JOURNAL_KEY = 'yuedu_journal';
+  const journal = JSON.parse(localStorage.getItem(JOURNAL_KEY) || '[]');
+
+  // Удаляем старую запись для этой группы если есть
+  const filtered = journal.filter(e => !(e.spec === 'M078' && e.op === '7M04201' && e.group === 'МНЮП-25'));
+
+  filtered.push({
+    id: Date.now(),
+    spec: 'M078',
+    op: '7M04201',
+    group: 'МНЮП-25',
+    faculty: 'Юридический факультет',
+    createdAt: new Date().toISOString(),
+    disciplines: [
+      {
+        name_kz: 'Интернет-құқық және құпиялылық',
+        name_ru: 'Интернет-право и конфиденциальность',
+        name_en: 'Internet Law and Privacy',
+        credits: '4',
+        teacher: ''
+      },
+      {
+        name_kz: 'Ғылым тарихы мен философиясы',
+        name_ru: 'История и философия науки',
+        name_en: 'History and Philosophy of Science',
+        credits: '4',
+        teacher: ''
+      },
+      {
+        name_kz: 'Жоғары мектептегі педагогика',
+        name_ru: 'Педагогика в высшей школе',
+        name_en: 'Pedagogy in Higher Education',
+        credits: '4',
+        teacher: ''
+      },
+      {
+        name_kz: 'Киберқылмыс, виртуалды кеңістік және жасанды интеллектке байланысты қылмыстық-құқықтық мәселелер',
+        name_ru: 'Киберпреступность, виртуальное пространство и уголовно-правовые вопросы, связанные с искусственным интеллектом',
+        name_en: 'Cybercrime, Virtual Space and Criminal Law Issues Related to Artificial Intelligence',
+        credits: '5',
+        teacher: ''
+      },
+      {
+        name_kz: 'Корпоративтік дауларды сот практикасы',
+        name_ru: 'Судебная практика по корпоративным спорам',
+        name_en: 'Judicial Practice in Corporate Disputes',
+        credits: '5',
+        teacher: ''
+      },
+      {
+        name_kz: 'Инновациялық зерттеу әдістері мен коммерцияландыру',
+        name_ru: 'Инновационные методы исследований и коммерциализация',
+        name_en: 'Innovative Research Methods and Commercialization',
+        credits: '4',
+        teacher: ''
+      }
+    ],
+    practices: [
+      {
+        name_kz: 'Педагогикалық практика',
+        name_ru: 'Педагогическая практика',
+        name_en: 'Pedagogical Practice',
+        credits: '4',
+        teacher: ''
+      }
+    ]
+  });
+
+  localStorage.setItem(JOURNAL_KEY, JSON.stringify(filtered));
+  document.getElementById('msg').style.display = 'block';
+}
+</script>
+</body>
+</html>

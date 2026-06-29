@@ -11,7 +11,6 @@ function switchTab(index) {
   panels.forEach(p => p.classList.remove('active'));
   tabs[index].classList.add('active');
   panels[index].classList.add('active');
-  if (index === 3) initEduPanel();
 }
 
 /* ===== EDUCATION PANEL API ===== */
@@ -953,6 +952,7 @@ function openEditStudent() {
   if (title) title.textContent = s.fio || 'Обучающийся';
 
   // Восстанавливаем все поля
+  initEduPanel();
   if (s.fields) {
     restoreAllFields(s.fields);
   } else {
@@ -970,6 +970,7 @@ function openEditStudent() {
   }
 })();
 
+initEduPanel();
 lucide.createIcons();
 
 /* ===== GRADE JOURNAL ===== */

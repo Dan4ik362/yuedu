@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Добавить обучающегося — YUEdu</title>
+  <title>Обучающийся — YUEdu</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/css/global.css">
   <link rel="stylesheet" href="style.css">
@@ -74,10 +74,10 @@
             <i data-lucide="chevron-down" style="width:13px;height:13px;vertical-align:middle;margin-left:4px"></i>
           </button>
           <div class="show-menu-dropdown" id="showMenuDropdown">
-            <button class="show-menu-item" onclick="menuAlert('Просмотреть транскрипт')">Просмотреть транскрипт</button>
+            <button class="show-menu-item" onclick="openTranscript()">Просмотреть транскрипт</button>
             <button class="show-menu-item" onclick="openGradeJournal()">Журнал</button>
             <button class="show-menu-item" onclick="menuAlert('Индивидуальный учебный план')">Индивидуальный учебный план</button>
-            <button class="show-menu-item" onclick="menuAlert('Академический календарь')">Академический календарь</button>
+            <button class="show-menu-item" onclick="openAcadCalendar()">Академический календарь</button>
             <div class="show-menu-divider"></div>
             <button class="show-menu-item" onclick="openCertModal()">Сертификат</button>
           </div>
@@ -1613,7 +1613,7 @@
       </div><!-- /iup-document -->
 
       <div class="iup-modal-actions">
-        <button class="show-btn show-btn-print" onclick="window.print()">
+        <button class="show-btn show-btn-print" onclick="printIUP()">
           <i data-lucide="printer" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"></i>Печать
         </button>
         <button class="show-btn show-btn-back" onclick="closeIUP()">Закрыть</button>

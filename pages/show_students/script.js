@@ -110,8 +110,17 @@ function previewPhoto(input) {
   if (!input.files || !input.files[0]) return;
   const reader = new FileReader();
   reader.onload = e => {
-    const ph = input.closest('.photo-block').querySelector('.photo-placeholder');
+    const block = input.closest('.photo-block');
+    const ph = block.querySelector('.photo-placeholder');
     ph.innerHTML = `<img src="${e.target.result}" alt="Фото">`;
+    let hidden = block.querySelector('#f_photo_data');
+    if (!hidden) {
+      hidden = document.createElement('input');
+      hidden.type = 'hidden';
+      hidden.id = 'f_photo_data';
+      block.appendChild(hidden);
+    }
+    hidden.value = e.target.result;
   };
   reader.readAsDataURL(input.files[0]);
 }
@@ -688,6 +697,11 @@ function restoreAllFields(data) {
       if (label) label.textContent = val;
     }
   });
+  // Восстанавливаем фото
+  if (data.f_photo_data) {
+    const ph = document.querySelector('.photo-block .photo-placeholder');
+    if (ph) ph.innerHTML = `<img src="${data.f_photo_data}" alt="Фото">`;
+  }
 }
 
 /* ===== SAVE ===== */
@@ -739,106 +753,134 @@ function saveStudent() {
   }
 
   localStorage.setItem('yuedu_students', JSON.stringify(students));
-  window.location.href = '../students/';
+  showToast('✓ Данные сохранены');
+  setTimeout(() => { window.location.href = '../students/'; }, 1200);
+}
+
+function showToast(msg, type = 'success') {
+  let el = document.getElementById('appToast');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'appToast';
+    el.className = 'toast';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.className = `toast toast--${type}`;
+  requestAnimationFrame(() => el.classList.add('show'));
 }
 
 /* ===== LOAD STUDENT FOR EDIT ===== */
-const IUP_COURSES = [
-  { period: '1 Академический период', courses: [
-    { ok:'ОК', code:'IYa 1103', name:'Иностранный язык 1', credits:5, classes:[
-      {type:'Практики. Семинары', teacher:'Анарбекова Үлжан Үсенқызы', hours:45},
-      {type:'Самостоятельная работа студента и преподавателя', teacher:'Анарбекова Үлжан Үсенқызы', hours:30},
-    ], control:'Экзамен', grade:'B-'},
-    { ok:'ОК', code:'KRYa 1105', name:'Казахский (русский) язык 1', credits:5, classes:[
-      {type:'Практики. Семинары', teacher:'Нүрғали Жанна Адамбекүлы', hours:45},
-      {type:'Самостоятельная работа студента и преподавателя', teacher:'Нүрғали Жанна Адамбекүлы', hours:30},
-    ], control:'Экзамен', grade:'C+'},
-    { ok:'ОК', code:'Soc 1108', name:'Социология', credits:2, classes:[
-      {type:'Лекции', teacher:'Кажупова Фарида Маратовна', hours:7},
-      {type:'Практики. Семинары', teacher:'Кажупова Фарида Маратовна', hours:15},
-      {type:'Самостоятельная работа студента и преподавателя', teacher:'Кажупова Фарида Маратовна', hours:15},
-    ], control:'Экзамен', grade:'B-'},
-    { ok:'ОК', code:'IK 1121', name:'История Казахстана', credits:5, classes:[
-      {type:'Лекции', teacher:'Кильдякова Елена Николаевна', hours:15},
-      {type:'Практики. Семинары', teacher:'Кильдякова Елена Николаевна', hours:30},
-      {type:'Самостоятельная работа студента и преподавателя', teacher:'Кильдякова Елена Николаевна', hours:30},
-    ], control:'Государственный экзамен по истории Казахстана', grade:'C-'},
-    { ok:'ОК', code:'FK 1112', name:'Физическая культура', credits:2, classes:[
-      {type:'Практики. Семинары', teacher:'Каршыгаев Мейрбек Каршыгаүлы', hours:60},
-    ], control:'Дифференцированный зачет', grade:'B-'},
-  ], total:19 },
-  { period: '2 Академический период', courses: [
-    { ok:'ОК', code:'IYa 1104', name:'Иностранный язык 2', credits:5, classes:[
-      {type:'Практики. Семинары', teacher:'Анарбекова Үлжан Үсенқызы', hours:45},
-      {type:'Самостоятельная работа студента и преподавателя', teacher:'Анарбекова Үлжан Үсенқызы', hours:30},
-    ], control:'Экзамен', grade:'F'},
-    { ok:'ОК', code:'FK 1111', name:'Физическая культура', credits:2, classes:[
-      {type:'Практики. Семинары', teacher:'Каршыгаев Мейрбек Каршыгаүлы', hours:60},
-    ], control:'Дифференцированный зачет', grade:'B-'},
-    { ok:'ОК', code:'KRYa 1120', name:'Казахский (русский) язык 2', credits:5, classes:[
-      {type:'Практики. Семинары', teacher:'Битикова Алмагуль Исмаиловна', hours:45},
-      {type:'Самостоятельная работа студента и преподавателя', teacher:'Битикова Алмагуль Исмаиловна', hours:30},
-    ], control:'Экзамен', grade:'C+'},
-  ], total:12 },
-];
-
 function openIUP() {
   document.getElementById('showMenuWrap').classList.remove('open');
   const s = _currentStudent;
 
   const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || '—'; };
-  set('iup-fio',      s ? s.fio : '—');
-  set('iup-fio2',     s && s.fields ? (s.fields.f_last||'') + ' ' + (s.fields.f_first||'') + ' ' + (s.fields.f_mid||'') : '—');
-  set('iup-degree',   s && s.fields ? (s.fields.edu_degree || 'Бакалавр') : 'Бакалавр');
+  set('iup-fio',        s ? s.fio : '—');
+  set('iup-fio2',       s?.fields ? (s.fields.f_last||'') + ' ' + (s.fields.f_first||'') + ' ' + (s.fields.f_mid||'') : '—');
+  set('iup-degree',     s?.fields?.edu_degree || 'Бакалавр');
   set('iup-transcript', '—');
-  set('iup-group',    s ? (s.specialty || '—') : '—');
-  set('iup-op-code',  s ? (s.specialty || '—') : '—');
-  set('iup-op',       s ? (s.specialization || '—') : '—');
-  set('iup-op-name',  s ? (s.specialization || '—') : '—');
-  set('iup-form',     s && s.fields ? (s.fields.edu_form || 'Бакалавриат очная первое высшее образование, 4 г.') : 'Бакалавриат очная первое высшее образование, 4 г.');
-  set('iup-course',   '1');
-  set('iup-lang',     s && s.fields ? (s.fields.edu_lang || 'Казахский') : 'Казахский');
-  set('iup-year',     '2025 – 2026 учебный год');
+  set('iup-group',      s?.specialty || '—');
+  set('iup-op-code',    s?.specialty || '—');
+  set('iup-op',         s?.specialization || '—');
+  set('iup-op-name',    s?.specialization || '—');
+  set('iup-form',       s?.fields?.edu_form || 'Бакалавриат очная первое высшее образование, 4 г.');
+  set('iup-course',     '1');
+  set('iup-lang',       s?.fields?.edu_lang || 'Казахский');
+  set('iup-year',       '2025 – 2026 учебный год');
   set('iup-footer-fio', s ? s.fio : '—');
+
+  // Ищем учебный план студента
+  const journal = JSON.parse(localStorage.getItem('yuedu_journal') || '[]');
+  const specVal = s?.fields?.edu_specialty || '';
+  const opVal   = s?.fields?.edu_op        || '';
+  const grpVal  = s?.fields?.edu_group     || '';
+
+  const entry = journal.find(e => {
+    const specMatch = !specVal || e.spec === specVal;
+    const opMatch   = !opVal   || e.op   === opVal;
+    const grpMatch  = !grpVal  || e.group.toLowerCase() === grpVal.toLowerCase();
+    return specMatch && opMatch && grpMatch;
+  });
+
+  // Загружаем сохранённые оценки
+  const studentId = window._editStudentId || 'new';
+  const grades    = JSON.parse(localStorage.getItem('yuedu_grades') || '{}');
+  const savedGrades = entry ? (grades[`${studentId}_${entry.id}`] || {}) : {};
 
   const tbody = document.getElementById('iupTableBody');
   let html = '';
-  let num = 1;
-  const year = '1 Курс обучения 2025-2026 учебный год';
-  html += `<tr class="iup-period-row"><td colspan="10">${year}</td></tr>`;
 
-  IUP_COURSES.forEach(period => {
-    html += `<tr class="iup-period-row"><td colspan="10">${period.period}</td></tr>`;
-    period.courses.forEach(c => {
-      const rows = c.classes.length;
-      c.classes.forEach((cl, ci) => {
-        html += '<tr' + (ci===0?' class="iup-course-row"':'') + '>';
-        if (ci===0) {
-          html += `<td rowspan="${rows}">${num}</td>`;
-          html += `<td rowspan="${rows}">${c.ok}</td>`;
-          html += `<td rowspan="${rows}">${c.code}</td>`;
-          html += `<td rowspan="${rows}">${c.name}</td>`;
-          html += `<td rowspan="${rows}">${c.credits}</td>`;
+  if (!entry) {
+    html = `<tr><td colspan="10" style="text-align:center;padding:20px;color:#9ca3af">Учебный план не найден для данного студента</td></tr>`;
+  } else {
+    const disciplines = entry.disciplines || [];
+    const practices   = entry.practices   || [];
+    const totalCredits = [...disciplines, ...practices].reduce((acc, d) => acc + (parseInt(d.credits) || 0), 0);
+    let num = 1;
+
+    html += `<tr class="iup-period-row"><td colspan="10">1 Курс обучения 2025-2026 учебный год</td></tr>`;
+
+    function buildItemRows(items, sectionKey) {
+      if (!items.length) return '';
+      let out = `<tr class="iup-period-row"><td colspan="10">${sectionKey}</td></tr>`;
+      items.forEach((d, i) => {
+        const name  = d.name_ru || d.name_kz || d.name_en || '—';
+        const gr    = savedGrades[`${i}_${sectionKey}`] || {};
+        const types = (d.class_types || []).filter(ct => ct.type || ct.hours);
+        const rows  = types.length || 1;
+
+        if (rows === 1) {
+          const ct = types[0] || {};
+          out += `<tr class="iup-course-row">
+            <td>${num++}</td>
+            <td>${d.component || '—'}</td>
+            <td>${d.code      || '—'}</td>
+            <td>${name}</td>
+            <td>${d.credits   || '—'}</td>
+            <td>${ct.type     || '—'}</td>
+            <td>${d.teacher   || '—'}</td>
+            <td>${ct.hours    || '—'}</td>
+            <td>${d.control   || '—'}</td>
+            <td>${gr.let      || '—'}</td>
+          </tr>`;
+        } else {
+          types.forEach((ct, ci) => {
+            out += `<tr class="iup-course-row">`;
+            if (ci === 0) {
+              out += `<td rowspan="${rows}">${num++}</td>`;
+              out += `<td rowspan="${rows}">${d.component || '—'}</td>`;
+              out += `<td rowspan="${rows}">${d.code      || '—'}</td>`;
+              out += `<td rowspan="${rows}">${name}</td>`;
+              out += `<td rowspan="${rows}">${d.credits   || '—'}</td>`;
+            }
+            out += `<td>${ct.type  || '—'}</td>`;
+            if (ci === 0) {
+              out += `<td rowspan="${rows}">${d.teacher || '—'}</td>`;
+            }
+            out += `<td>${ct.hours || '—'}</td>`;
+            if (ci === 0) {
+              out += `<td rowspan="${rows}">${d.control || '—'}</td>`;
+              out += `<td rowspan="${rows}">${gr.let    || '—'}</td>`;
+            }
+            out += `</tr>`;
+          });
         }
-        html += `<td>${cl.type}</td>`;
-        html += `<td>${cl.teacher}</td>`;
-        html += `<td>${cl.hours}</td>`;
-        if (ci===0) {
-          html += `<td rowspan="${rows}">${c.control}</td>`;
-          html += `<td rowspan="${rows}">${c.grade}</td>`;
-        }
-        html += '</tr>';
       });
-      num++;
-    });
-    html += `<tr class="iup-total-row"><td colspan="4">Общее количество кредитов</td><td>${period.total}</td><td colspan="5"></td></tr>`;
-  });
+      return out;
+    }
 
-  const totalAll = IUP_COURSES.reduce((s,p)=>s+p.total,0);
-  html += `<tr class="iup-total-row"><td colspan="4">Общее количество кредитов за курс</td><td>${totalAll}</td><td colspan="5"></td></tr>`;
-  html += `<tr class="iup-total-row"><td colspan="4">Общее количество кредитов теоретического и практического обучения</td><td>${totalAll}</td><td colspan="5"></td></tr>`;
+    html += buildItemRows(disciplines, 'ДИСЦИПЛИНЫ');
+    html += buildItemRows(practices,   'ПРАКТИКА');
+
+    html += `<tr class="iup-total-row"><td colspan="4">Общее количество кредитов</td><td>${totalCredits}</td><td colspan="5"></td></tr>`;
+    html += `<tr class="iup-total-row"><td colspan="4">Общее количество кредитов за курс</td><td>${totalCredits}</td><td colspan="5"></td></tr>`;
+    html += `<tr class="iup-total-row"><td colspan="4">Общее количество кредитов теоретического и практического обучения</td><td>${totalCredits}</td><td colspan="5"></td></tr>`;
+  }
 
   tbody.innerHTML = html;
+  closeCertModal();
+  document.getElementById('gradeModal')?.classList.remove('open');
   document.getElementById('iupModal').classList.add('open');
   lucide.createIcons();
 }
@@ -847,14 +889,337 @@ function closeIUP() {
   document.getElementById('iupModal').classList.remove('open');
 }
 
+function openIUPWindow() {
+  openIUP();
+  let content = document.getElementById('iupDocument').innerHTML;
+  closeIUP();
+
+  const pageBase = new URL('../../', window.location.href).href;
+  content = content.replace(/src="\.\.\/\.\.\//g, `src="${pageBase}`);
+
+  const styles = [...document.styleSheets].map(ss => {
+    try { return [...ss.cssRules].map(r => r.cssText).join('\n'); }
+    catch { return ''; }
+  }).join('\n');
+
+  const html = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Индивидуальный учебный план</title>
+  <style>
+    ${styles}
+    @page { margin: 0mm; size: A4 landscape; }
+    body { background: #e5e7eb; margin: 0; padding: 0; font-family: 'Times New Roman', serif; }
+    .iup-win-bar { position:fixed !important; bottom:24px !important; right:24px !important; display:flex !important; align-items:center !important; gap:8px !important; z-index:9999 !important; }
+    .iup-win-bar button { all:unset; display:inline-block !important; padding:8px 18px !important; border-radius:6px !important; font-size:13px !important; line-height:1.4 !important; cursor:pointer !important; border:1px solid #d1d5db !important; white-space:nowrap !important; box-shadow:0 2px 8px rgba(0,0,0,.15) !important; }
+    .iup-win-bar .btn-p { background:#1d4ed8 !important; color:#fff !important; border-color:#1d4ed8 !important; }
+    .iup-win-bar .btn-c { background:#fff !important; color:#374151 !important; }
+    .iup-win-bar .btn-p:hover { background:#1e40af !important; }
+    .iup-win-bar .btn-c:hover { background:#f9fafb !important; }
+    .iup-doc-wrap { background:#fff; max-width:1200px; margin:24px auto; padding:32px; box-shadow:0 1px 4px rgba(0,0,0,.12); }
+    @media print {
+      @page { margin: 0mm; }
+      body > * { display: revert !important; }
+      .iup-win-bar { display: none !important; }
+      body { background: #fff !important; padding: 1.5cm !important; margin: 0 !important; }
+      .iup-doc-wrap { margin: 0 !important; padding: 0 !important; box-shadow: none !important; max-width: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="iup-win-bar">
+    <button class="btn-p" onclick="window.print()">Печать / Скачать PDF</button>
+    <button class="btn-c" onclick="window.close()">Закрыть</button>
+  </div>
+  <div class="iup-doc-wrap">
+    <div class="iup-document">${content}</div>
+  </div>
+</body>
+</html>`;
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  window.open(URL.createObjectURL(blob), '_blank');
+}
+
 function menuAlert(name) {
   document.getElementById('showMenuWrap').classList.remove('open');
-  if (name === 'Индивидуальный учебный план') { openIUP(); return; }
+  if (name === 'Индивидуальный учебный план') { openIUPWindow(); return; }
   alert(name + ' — в разработке');
+}
+
+function openAcadCalendar() {
+  document.getElementById('showMenuWrap').classList.remove('open');
+
+  const s = window._currentStudent;
+  const faculty = s?.fields?.edu_faculty || '';
+
+  const calendars = JSON.parse(localStorage.getItem('yuedu_calendar') || '[]');
+  const matched = faculty
+    ? calendars.filter(c => c.faculty === faculty)
+    : calendars;
+
+  if (!matched.length) {
+    const dest = '../schedule/' + (faculty ? '?faculty=' + encodeURIComponent(faculty) : '');
+    window.open(dest, '_blank');
+    return;
+  }
+
+  const MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  function fmtDate(iso) {
+    if (!iso) return '';
+    const [, m, d] = iso.split('-');
+    return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]}`;
+  }
+  function fmtRange(s, e) {
+    if (s && e) return `${fmtDate(s)}–${fmtDate(e)}`;
+    return fmtDate(s) || fmtDate(e) || '';
+  }
+  function cr(label, val) {
+    if (!val) return '';
+    return `<div class="cal-row"><span>${label}</span><span><b>${val}</b></span></div>`;
+  }
+  function semDoc(title, sem, type) {
+    if (!sem) return '';
+    let body = '';
+    if (sem.theor_start || sem.theor_end) {
+      body += `<div class="cal-sec"><div class="cal-sec-t">Теоретическое обучение</div>`;
+      body += cr('Начало семестра', fmtDate(sem.theor_start));
+      body += cr('Конец семестра',  fmtDate(sem.theor_end));
+      body += cr('Всего недель',    sem.theor_weeks);
+      body += `</div>`;
+    }
+    if (sem.reg_start) { body += `<div class="cal-sec"><div class="cal-sec-t">Регистрация</div>${cr('Ориентационная неделя', fmtRange(sem.reg_start, sem.reg_end))}</div>`; }
+    if (sem.rk1_start || sem.rk2_start) {
+      body += `<div class="cal-sec"><div class="cal-sec-t">Рубежные контроли</div>`;
+      body += cr('Рубежный контроль 1', fmtRange(sem.rk1_start, sem.rk1_end));
+      body += cr('Рубежный контроль 2', fmtRange(sem.rk2_start, sem.rk2_end));
+      body += `</div>`;
+    }
+    if (sem.session_start) {
+      const lbl = type === 'winter' ? 'Зимняя сессия' : 'Экзаменационная сессия';
+      body += `<div class="cal-sec"><div class="cal-sec-t">Сессия</div>${cr(lbl, fmtRange(sem.session_start, sem.session_end))}</div>`;
+    }
+    if (sem.practices?.length) {
+      body += `<div class="cal-sec"><div class="cal-sec-t">Практика</div>`;
+      sem.practices.forEach(p => {
+        body += cr(p.name || 'Практика', fmtRange(p.period_start, p.period_end));
+        body += cr('Начало периода выставления итоговой оценки', fmtDate(p.grade_start));
+        body += cr('Конец периода выставления итоговой оценки',  fmtDate(p.grade_end));
+      });
+      body += `</div>`;
+    }
+    if (sem.hol_start) {
+      const lbl = type === 'winter' ? 'Зимние каникулы' : 'Летние каникулы';
+      body += `<div class="cal-sec">${cr(lbl, fmtRange(sem.hol_start, sem.hol_end))}</div>`;
+    }
+    if (!body) return '';
+    return `<div class="sem-hdr">${title}</div>` + body;
+  }
+
+  const docsHtml = matched.map(c => {
+    let body = `
+      <div class="doc-hdr">
+        <div class="doc-side">НАО Каспийский университет технологий и инжиниринга им. Ш.Есенова</div>
+        <div><img src="../../assets/img/logo.png" style="height:52px"></div>
+        <div class="doc-side" style="text-align:right">Ш.Есенов атындағы Каспий технологиялар және инжиниринг университеті КеАК</div>
+      </div>
+      <hr>
+      <div class="doc-title">Академический календарь<br>на ${c.year} учебный год<br>${c.faculty} (${c.year} учебный год) / ${c.course} курс</div>`;
+    body += semDoc('Осенний семестр (1 семестр)', c.s1, 'winter');
+    body += semDoc('Весенний семестр (2 семестр)', c.s2, 'spring');
+    if (c.s3?.start) {
+      body += `<div class="sem-hdr">Летний учебный период</div>`;
+      body += `<div class="cal-sec"><div class="cal-sec-t">Учебный период</div>${cr('Начало', fmtDate(c.s3.start))}${cr('Конец', fmtDate(c.s3.end))}${cr('Всего недель', c.s3.weeks)}</div>`;
+    }
+    return `<div class="doc-wrap">${body}</div>`;
+  }).join('<div style="height:32px"></div>');
+
+  const pageBase = new URL('../../', window.location.href).href;
+  const calHtml = `<!DOCTYPE html>
+<html><head>
+  <meta charset="UTF-8">
+  <title>Академический календарь</title>
+  <style>
+    @page { margin: 0mm; size: A4 portrait; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Times New Roman', serif; font-size: 11pt; background: #e5e7eb; padding: 20px; }
+    .cal-win-bar { position: fixed; bottom: 20px; right: 20px; display: flex; gap: 8px; z-index: 9999; }
+    .cal-win-bar button { padding: 8px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; border: 1px solid #d1d5db; box-shadow: 0 2px 6px rgba(0,0,0,.15); font-family: sans-serif; }
+    .btn-p { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
+    .btn-c { background: #fff; color: #374151; }
+    .doc-wrap { background: #fff; max-width: 800px; margin: 0 auto 32px; padding: 40px; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+    .doc-hdr { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+    .doc-side { font-size: 9pt; max-width: 220px; line-height: 1.4; }
+    hr { border: none; border-top: 2px solid #000; margin: 8px 0 20px; }
+    .doc-title { text-align: center; font-weight: bold; font-size: 13pt; margin-bottom: 20px; line-height: 1.6; }
+    .sem-hdr { font-weight: bold; font-size: 12pt; margin: 20px 0 8px; border-bottom: 1px solid #aaa; padding-bottom: 3px; }
+    .cal-sec { margin-bottom: 12px; }
+    .cal-sec-t { font-weight: bold; margin-bottom: 4px; }
+    .cal-row { display: flex; justify-content: space-between; padding: 1px 0; }
+    @media print {
+      @page { margin: 0mm; }
+      .cal-win-bar { display: none !important; }
+      body { background: #fff !important; padding: 0 !important; }
+      .doc-wrap { box-shadow: none; max-width: none; padding: 1.5cm; }
+    }
+  </style>
+</head><body>
+  <div class="cal-win-bar">
+    <button class="btn-p" onclick="window.print()">Печать / PDF</button>
+    <button class="btn-c" onclick="window.close()">Закрыть</button>
+  </div>
+  ${docsHtml.replace(/src="\.\.\/\.\.\//g, `src="${pageBase}`)}
+</body></html>`;
+  const blob = new Blob([calHtml], { type: 'text/html;charset=utf-8' });
+  window.open(URL.createObjectURL(blob), '_blank');
+}
+
+function openTranscript() {
+  document.getElementById('showMenuWrap').classList.remove('open');
+  const s = window._currentStudent;
+  const journal = JSON.parse(localStorage.getItem('yuedu_journal') || '[]');
+
+  const specVal = s?.fields?.edu_specialty || '';
+  const opVal   = s?.fields?.edu_op        || '';
+  const grpVal  = s?.fields?.edu_group     || '';
+
+  const entry = journal.find(e => {
+    const specMatch = !specVal || e.spec === specVal;
+    const opMatch   = !opVal   || e.op   === opVal;
+    const grpMatch  = !grpVal  || e.group.toLowerCase() === grpVal.toLowerCase();
+    return specMatch && opMatch && grpMatch;
+  });
+
+  if (!entry) {
+    alert('Учебный план не найден для данного студента.\nПроверьте совпадение Специализации, Специальности и Группы.');
+    return;
+  }
+
+  const studentId = window._editStudentId || 'new';
+  const grades = JSON.parse(localStorage.getItem('yuedu_grades') || '{}');
+  const saved  = grades[`${studentId}_${entry.id}`] || {};
+
+  function buildRows(items, sectionLabel) {
+    if (!items.length) return { rowsHtml: '', credits: 0, gpaSum: 0, gpaCredits: 0 };
+    let rowsHtml = `<tr class="tr-section-row"><td colspan="7">${sectionLabel}</td></tr>`;
+    let credits = 0, gpaSum = 0, gpaCredits = 0;
+    items.forEach((d, i) => {
+      const name = d.name_ru || d.name_kz || d.name_en || d.name || '—';
+      const cr   = parseInt(d.credits) || 0;
+      const g    = saved[`${i}_${sectionLabel}`] || {};
+      credits += cr;
+      const gpaNum = parseFloat(g.gpa);
+      if (!isNaN(gpaNum)) { gpaSum += gpaNum * cr; gpaCredits += cr; }
+      rowsHtml += `<tr>
+        <td>${d.code || '—'}</td>
+        <td>${name}</td>
+        <td class="tr-num">${d.credits || '—'}</td>
+        <td class="tr-num">${g.total || '—'}</td>
+        <td class="tr-num">${g.gpa   || '—'}</td>
+        <td class="tr-num">${g.let   || '—'}</td>
+        <td>${g.trad || '—'}</td>
+      </tr>`;
+    });
+    return { rowsHtml, credits, gpaSum, gpaCredits };
+  }
+
+  const disc = buildRows(entry.disciplines || [], 'ДИСЦИПЛИНЫ');
+  const prac = buildRows(entry.practices   || [], 'ПРАКТИКА');
+  const totalCredits = disc.credits + prac.credits;
+  const gpaCredits    = disc.gpaCredits + prac.gpaCredits;
+  const gpaSum        = disc.gpaSum + prac.gpaSum;
+  const overallGpa    = gpaCredits ? (gpaSum / gpaCredits).toFixed(2) : '—';
+
+  const pageBase = new URL('../../', window.location.href).href;
+  const html = `<!DOCTYPE html>
+<html><head>
+  <meta charset="UTF-8">
+  <title>Транскрипт</title>
+  <style>
+    @page { margin: 0mm; size: A4 portrait; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Times New Roman', serif; font-size: 11pt; background: #e5e7eb; padding: 20px; }
+    .tr-win-bar { position: fixed; bottom: 20px; right: 20px; display: flex; gap: 8px; z-index: 9999; }
+    .tr-win-bar button { padding: 8px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; border: 1px solid #d1d5db; box-shadow: 0 2px 6px rgba(0,0,0,.15); font-family: sans-serif; }
+    .btn-p { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
+    .btn-c { background: #fff; color: #374151; }
+    .doc-wrap { background: #fff; max-width: 900px; margin: 0 auto 32px; padding: 40px; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+    .doc-hdr { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+    .doc-side { font-size: 9pt; max-width: 220px; line-height: 1.4; }
+    hr { border: none; border-top: 2px solid #000; margin: 8px 0 20px; }
+    .doc-title { text-align: center; font-weight: bold; font-size: 13pt; margin-bottom: 20px; line-height: 1.6; }
+    .tr-info { margin-bottom: 20px; }
+    .tr-info-row { display: flex; justify-content: space-between; padding: 2px 0; border-bottom: 1px dotted #ccc; font-size: 10.5pt; }
+    .tr-table { width: 100%; border-collapse: collapse; font-size: 10pt; margin-bottom: 16px; }
+    .tr-table th, .tr-table td { border: 1px solid #000; padding: 5px 7px; }
+    .tr-table th { background: #f3f4f6; font-size: 9pt; }
+    .tr-num { text-align: center; }
+    .tr-section-row td { background: #eef2ff; font-weight: bold; text-align: center; }
+    .tr-summary { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; margin-bottom: 24px; }
+    .tr-sign { margin-top: 40px; font-size: 10.5pt; }
+    .tr-sign-row { display: flex; align-items: flex-end; gap: 10px; margin-bottom: 14px; }
+    .tr-sign-line { flex: 1; border-bottom: 1px solid #000; }
+    @media print {
+      @page { margin: 0mm; }
+      .tr-win-bar { display: none !important; }
+      body { background: #fff !important; padding: 0 !important; }
+      .doc-wrap { box-shadow: none; max-width: none; padding: 1.5cm; }
+    }
+  </style>
+</head><body>
+  <div class="tr-win-bar">
+    <button class="btn-p" onclick="window.print()">Печать / PDF</button>
+    <button class="btn-c" onclick="window.close()">Закрыть</button>
+  </div>
+  <div class="doc-wrap">
+    <div class="doc-hdr">
+      <div class="doc-side">НАО Каспийский университет технологий и инжиниринга им. Ш.Есенова</div>
+      <div><img src="${pageBase}assets/img/logo.png" style="height:52px"></div>
+      <div class="doc-side" style="text-align:right">Ш.Есенов атындағы Каспий технологиялар және инжиниринг университеті КеАК</div>
+    </div>
+    <hr>
+    <div class="doc-title">Транскрипт (академическая справка)</div>
+    <div class="tr-info">
+      <div class="tr-info-row"><span>Обучающийся</span><b>${s?.fio || '—'}</b></div>
+      <div class="tr-info-row"><span>Факультет</span><b>${entry.faculty || '—'}</b></div>
+      <div class="tr-info-row"><span>Специальность / ОП</span><b>${entry.spec || '—'} / ${entry.op || '—'}</b></div>
+      <div class="tr-info-row"><span>Группа</span><b>${entry.group || '—'}</b></div>
+    </div>
+    <table class="tr-table">
+      <thead>
+        <tr>
+          <th>Код</th>
+          <th>Название дисциплины</th>
+          <th>Кредиты</th>
+          <th>Итого (%)</th>
+          <th>GPA</th>
+          <th>Букв.</th>
+          <th>Традиц.</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${disc.rowsHtml}
+        ${prac.rowsHtml}
+      </tbody>
+    </table>
+    <div class="tr-summary">
+      <span>Общее количество кредитов: ${totalCredits}</span>
+      <span>Средний балл (GPA): ${overallGpa}</span>
+    </div>
+    <div class="tr-sign">
+      <div class="tr-sign-row"><span>Регистратор:</span><span class="tr-sign-line"></span><span>«___» _____________ 20__ г.</span></div>
+      <div class="tr-sign-row"><span>М.П.</span><span class="tr-sign-line"></span></div>
+    </div>
+  </div>
+</body></html>`;
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  window.open(URL.createObjectURL(blob), '_blank');
 }
 
 function openCertModal() {
   document.getElementById('showMenuWrap').classList.remove('open');
+  closeIUP();
+  document.getElementById('gradeModal')?.classList.remove('open');
   document.getElementById('certMdInput').value = '';
   const modal = document.getElementById('certModal');
   modal.style.display = 'flex';
@@ -1080,7 +1445,7 @@ function recalcRow(input) {
   const avg  = parseFloat(row.querySelector('[data-field="avg"]')?.value);
   const exam = parseFloat(row.querySelector('[data-field="exam"]')?.value);
   if (!isNaN(avg) && !isNaN(exam)) {
-    const total = Math.round(avg * 0.6 + exam * 0.4);
+    const total = Math.floor(avg * 0.6 + exam * 0.4);
     const gr = gradeFromPct(total);
     const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
     setEl(`gj_total_${safeId}`, total + '%');
@@ -1123,6 +1488,38 @@ function closeGradeJournalOutside(e) {
   if (e.target === document.getElementById('gradeModal')) closeGradeJournal();
 }
 
+/* ===== PRINT IUP ===== */
+function printIUP() {
+  const content = document.getElementById('iupDocument').innerHTML;
+
+  // Собираем все стили страницы
+  const styles = [...document.styleSheets].map(ss => {
+    try {
+      return [...ss.cssRules].map(r => r.cssText).join('\n');
+    } catch { return ''; }
+  }).join('\n');
+
+  const win = window.open('', '_blank', 'width=900,height=700');
+  win.document.write(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Индивидуальный учебный план</title>
+  <style>
+    ${styles}
+    @page { margin: 1.5cm; }
+    body { margin: 0; font-family: 'Times New Roman', serif; background: #fff; }
+    .iup-document { padding: 0; }
+  </style>
+</head>
+<body>
+  <div class="iup-document">${content}</div>
+  <script>window.onload = function(){ window.print(); window.onafterprint = function(){ window.close(); }; }<\/script>
+</body>
+</html>`);
+  win.document.close();
+}
+
 /* ===== FACULTY SELECT ===== */
 (async function loadFacultySelect() {
   const API_KEY = 'a3f8c2d1e9b74056f2a1c8d3e7f0b9a2c5d8e1f4a7b0c3d6e9f2a5b8c1d4e7f0';
@@ -1134,12 +1531,16 @@ function closeGradeJournalOutside(e) {
     });
     const data = await res.json();
     const items = data.items || [];
-    sel.innerHTML = '<option value="">— Выберите факультет —</option>' +
-      items.map(f => `<option value="${f.nameRU || f.nameKZ || ''}">${f.nameRU || f.nameKZ || '—'}</option>`).join('');
-    // restore saved value if editing
+    sel.innerHTML = '';
+    sel.appendChild(new Option('— Выберите факультет —', ''));
+    items.forEach(f => {
+      const name = f.nameRU || f.nameKZ || '';
+      if (name) sel.appendChild(new Option(name, name));
+    });
     const s = window._currentStudent;
     if (s?.fields?.edu_faculty) sel.value = s.fields.edu_faculty;
   } catch {
-    sel.innerHTML = '<option value="">— Ошибка загрузки —</option>';
+    sel.innerHTML = '';
+    sel.appendChild(new Option('— Ошибка загрузки —', ''));
   }
 })();

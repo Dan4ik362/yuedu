@@ -93,32 +93,89 @@ function buildTeacherOptions() {
     _teachers.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
 }
 
-function makeRow(namePlaceholder) {
-  const tr = document.createElement('tr');
-  tr.innerHTML = `
-    <td>
-      <div class="name-langs">
-        <div class="name-lang-row"><span class="lang-tag">КЗ</span><input type="text" placeholder="${namePlaceholder}" data-field="name_kz"></div>
-        <div class="name-lang-row"><span class="lang-tag">РУ</span><input type="text" placeholder="${namePlaceholder}" data-field="name_ru"></div>
-        <div class="name-lang-row"><span class="lang-tag">АНГ</span><input type="text" placeholder="${namePlaceholder}" data-field="name_en"></div>
-      </div>
-    </td>
-    <td class="col-credits"><input type="number" min="1" max="10" placeholder="4" data-field="credits"></td>
-    <td><input type="text" placeholder="Преподаватель" data-field="teacher"></td>
-    <td class="col-del"><button class="btn-del-row" onclick="this.closest('tr').remove()" title="Удалить"><i data-lucide="trash-2" style="width:13px;height:13px"></i></button></td>
+function makeClassTypeRow(typeVal, hoursVal) {
+  const div = document.createElement('div');
+  div.className = 'classtype-row';
+  div.innerHTML = `
+    <select data-field="class_type">
+      <option value="">— Не выбрано —</option>
+      <option value="Лекции">Лекции</option>
+      <option value="Практики">Практики</option>
+      <option value="Семинары">Семинары</option>
+      <option value="Самостоятельная работа студента и преподавателя">СРС и преподавателя</option>
+    </select>
+    <span class="classtype-row-label">Часы:</span>
+    <input type="number" min="1" max="500" placeholder="45" data-field="hours">
+    <button class="btn-del-classtype" onclick="this.closest('.classtype-row').remove()" title="Удалить">×</button>
   `;
-  return tr;
+  if (typeVal)  div.querySelector('[data-field="class_type"]').value = typeVal;
+  if (hoursVal) div.querySelector('[data-field="hours"]').value = hoursVal;
+  return div;
+}
+
+function addClassTypeRow(btn) {
+  const card = btn.closest('.disc-card');
+  card.querySelector('.classtype-rows').appendChild(makeClassTypeRow());
+}
+
+function makeRow(namePlaceholder) {
+  const card = document.createElement('div');
+  card.className = 'disc-card';
+  card.innerHTML = `
+    <button class="disc-card-del" onclick="this.closest('.disc-card').remove()" title="Удалить"><i data-lucide="trash-2" style="width:13px;height:13px"></i></button>
+    <div class="disc-card-top">
+      <div class="disc-name-col">
+        <div class="name-langs">
+          <div class="name-lang-row"><span class="lang-tag">КЗ</span><input type="text" placeholder="${namePlaceholder}" data-field="name_kz"></div>
+          <div class="name-lang-row"><span class="lang-tag">РУ</span><input type="text" placeholder="${namePlaceholder}" data-field="name_ru"></div>
+          <div class="name-lang-row"><span class="lang-tag">АНГ</span><input type="text" placeholder="${namePlaceholder}" data-field="name_en"></div>
+        </div>
+      </div>
+      <div class="disc-fields-row">
+        <div class="disc-field disc-field--code"><label>КОД</label><input type="text" placeholder="IYa 1103" data-field="code"></div>
+        <div class="disc-field disc-field--comp"><label>ОК/ВК</label>
+          <select data-field="component">
+            <option value="">—</option>
+            <option value="ОК">ОК</option>
+            <option value="ВК">ВК</option>
+            <option value="КВ">КВ</option>
+            <option value="ДВО">ДВО</option>
+            <option value="УПП">УПП</option>
+          </select>
+        </div>
+        <div class="disc-field disc-field--cr"><label>КРЕДИТЫ</label><input type="number" min="1" max="30" placeholder="4" data-field="credits"></div>
+        <div class="disc-field disc-field--teach"><label>ПРЕПОДАВАТЕЛЬ</label><input type="text" placeholder="Преподаватель" data-field="teacher"></div>
+        <div class="disc-field disc-field--ctrl"><label>ФОРМА КОНТРОЛЯ</label>
+          <select data-field="control">
+            <option value="">—</option>
+            <option value="Экзамен">Экзамен</option>
+            <option value="Зачет">Зачет</option>
+            <option value="Дифференцированный зачет">Дифференцированный зачет</option>
+            <option value="Итоговая оценка по практике">Итоговая оценка по практике</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="disc-classtypes">
+      <div class="disc-classtypes-head">
+        <span>Виды занятий</span>
+        <button class="btn-add-classtype" type="button" onclick="addClassTypeRow(this)">+ добавить</button>
+      </div>
+      <div class="classtype-rows"></div>
+    </div>
+  `;
+  // Add one default class type row
+  card.querySelector('.classtype-rows').appendChild(makeClassTypeRow());
+  return card;
 }
 
 function addDiscRow() {
-  const tbody = document.getElementById('discBody');
-  tbody.appendChild(makeRow('Название предмета'));
+  document.getElementById('discBody').appendChild(makeRow('Название предмета'));
   lucide.createIcons();
 }
 
 function addPracticeRow() {
-  const tbody = document.getElementById('practiceBody');
-  tbody.appendChild(makeRow('Название практики'));
+  document.getElementById('practiceBody').appendChild(makeRow('Название практики'));
   lucide.createIcons();
 }
 
@@ -135,14 +192,24 @@ function saveJournalEntry() {
   if (!op)    { alert('Выберите специальность'); return; }
   if (!group) { alert('Введите группу'); return; }
 
-  function parseRows(tbodyId) {
-    return [...document.getElementById(tbodyId).querySelectorAll('tr')].map(tr => ({
-      name_kz: tr.querySelector('[data-field="name_kz"]').value.trim(),
-      name_ru: tr.querySelector('[data-field="name_ru"]').value.trim(),
-      name_en: tr.querySelector('[data-field="name_en"]').value.trim(),
-      credits: tr.querySelector('[data-field="credits"]').value,
-      teacher: tr.querySelector('[data-field="teacher"]').value.trim(),
-    })).filter(d => d.name_kz || d.name_ru || d.name_en);
+  function parseRows(wrapId) {
+    return [...document.getElementById(wrapId).querySelectorAll('.disc-card')].map(card => {
+      const class_types = [...card.querySelectorAll('.classtype-row')].map(row => ({
+        type:  row.querySelector('[data-field="class_type"]').value,
+        hours: row.querySelector('[data-field="hours"]').value,
+      })).filter(ct => ct.type || ct.hours);
+      return {
+        name_kz:   card.querySelector('[data-field="name_kz"]').value.trim(),
+        name_ru:   card.querySelector('[data-field="name_ru"]').value.trim(),
+        name_en:   card.querySelector('[data-field="name_en"]').value.trim(),
+        code:      card.querySelector('[data-field="code"]').value.trim(),
+        component: card.querySelector('[data-field="component"]').value,
+        credits:   card.querySelector('[data-field="credits"]').value,
+        teacher:   card.querySelector('[data-field="teacher"]').value.trim(),
+        control:   card.querySelector('[data-field="control"]').value,
+        class_types,
+      };
+    }).filter(d => d.name_kz || d.name_ru || d.name_en);
   }
 
   const disciplines = parseRows('discBody');
@@ -318,33 +385,33 @@ function openEditModal(id) {
   const facSel = document.getElementById('m_faculty');
   [...facSel.options].forEach(o => { if (o.text === entry.faculty) facSel.value = o.value; });
 
-  // Disciplines
-  const discBody = document.getElementById('discBody');
-  discBody.innerHTML = '';
-  (entry.disciplines || []).forEach(d => {
-    const tr = makeRow('Название предмета');
-    tr.querySelector('[data-field="name_kz"]').value = d.name_kz || d.name || '';
-    tr.querySelector('[data-field="name_ru"]').value = d.name_ru || '';
-    tr.querySelector('[data-field="name_en"]').value = d.name_en || '';
-    tr.querySelector('[data-field="credits"]').value = d.credits || '';
-    tr.querySelector('[data-field="teacher"]').value = d.teacher || '';
-    discBody.appendChild(tr);
-  });
-  if (!discBody.children.length) addDiscRow();
+  function fillCards(wrapId, items, placeholder) {
+    const wrap = document.getElementById(wrapId);
+    wrap.innerHTML = '';
+    (items || []).forEach(d => {
+      const card = makeRow(placeholder);
+      card.querySelector('[data-field="name_kz"]').value  = d.name_kz   || d.name || '';
+      card.querySelector('[data-field="name_ru"]').value  = d.name_ru   || '';
+      card.querySelector('[data-field="name_en"]').value  = d.name_en   || '';
+      card.querySelector('[data-field="code"]').value     = d.code      || '';
+      card.querySelector('[data-field="component"]').value = d.component || '';
+      card.querySelector('[data-field="credits"]').value  = d.credits   || '';
+      card.querySelector('[data-field="teacher"]').value  = d.teacher   || '';
+      card.querySelector('[data-field="control"]').value  = d.control   || '';
+      // Restore class_types
+      const ctWrap = card.querySelector('.classtype-rows');
+      ctWrap.innerHTML = '';
+      const types = d.class_types && d.class_types.length ? d.class_types : [{}];
+      types.forEach(ct => ctWrap.appendChild(makeClassTypeRow(ct.type, ct.hours)));
+      wrap.appendChild(card);
+    });
+    if (!wrap.children.length) {
+      wrapId === 'discBody' ? addDiscRow() : addPracticeRow();
+    }
+  }
 
-  // Practices
-  const pracBody = document.getElementById('practiceBody');
-  pracBody.innerHTML = '';
-  (entry.practices || []).forEach(p => {
-    const tr = makeRow('Название практики');
-    tr.querySelector('[data-field="name_kz"]').value = p.name_kz || p.name || '';
-    tr.querySelector('[data-field="name_ru"]').value = p.name_ru || '';
-    tr.querySelector('[data-field="name_en"]').value = p.name_en || '';
-    tr.querySelector('[data-field="credits"]').value = p.credits || '';
-    tr.querySelector('[data-field="teacher"]').value = p.teacher || '';
-    pracBody.appendChild(tr);
-  });
-  if (!pracBody.children.length) addPracticeRow();
+  fillCards('discBody',     entry.disciplines, 'Название предмета');
+  fillCards('practiceBody', entry.practices,   'Название практики');
 
   document.getElementById('addModal').classList.add('open');
   lucide.createIcons();

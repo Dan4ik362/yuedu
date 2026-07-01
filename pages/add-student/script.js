@@ -111,8 +111,17 @@ function previewPhoto(input) {
   if (!input.files || !input.files[0]) return;
   const reader = new FileReader();
   reader.onload = e => {
-    const ph = input.closest('.photo-block').querySelector('.photo-placeholder');
+    const block = input.closest('.photo-block');
+    const ph = block.querySelector('.photo-placeholder');
     ph.innerHTML = `<img src="${e.target.result}" alt="Фото">`;
+    let hidden = block.querySelector('#f_photo_data');
+    if (!hidden) {
+      hidden = document.createElement('input');
+      hidden.type = 'hidden';
+      hidden.id = 'f_photo_data';
+      block.appendChild(hidden);
+    }
+    hidden.value = e.target.result;
   };
   reader.readAsDataURL(input.files[0]);
 }
@@ -689,6 +698,11 @@ function restoreAllFields(data) {
       if (label) label.textContent = val;
     }
   });
+  // Восстанавливаем фото
+  if (data.f_photo_data) {
+    const ph = document.querySelector('.photo-block .photo-placeholder');
+    if (ph) ph.innerHTML = `<img src="${data.f_photo_data}" alt="Фото">`;
+  }
 }
 
 /* ===== SAVE ===== */
@@ -756,11 +770,13 @@ function saveStudent() {
   if (!s) return;
 
   window._editStudentId = id;
+  window._currentStudent = s;
 
   const title = document.querySelector('.page-title');
   if (title) title.textContent = s.fio || 'Редактировать обучающегося';
 
   // Восстанавливаем все поля
+  initEduPanel(); // нужно до restoreAllFields — иначе options пустые и value не сетится
   if (s.fields) {
     restoreAllFields(s.fields);
   } else {

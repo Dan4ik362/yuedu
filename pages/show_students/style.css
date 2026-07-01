@@ -140,11 +140,43 @@ body { display: flex; background: #f5f6fa; min-height: 100vh; }
 .iup-footer-row { display:flex; align-items:baseline; gap:10px; margin-bottom:10px; font-size:11px; }
 .iup-footer-line { flex:1; border-bottom:1px solid #555; }
 
+/* ===== TOAST ===== */
+.toast { position: fixed; top: 24px; right: 24px; background: #16a34a; color: #fff; padding: 14px 22px; border-radius: 10px; font-size: 14px; font-weight: 500; box-shadow: 0 4px 20px rgba(0,0,0,.18); z-index: 9999; opacity: 0; transform: translateX(40px); transition: opacity .25s, transform .25s; pointer-events: none; display: flex; align-items: center; gap: 8px; }
+.toast.toast--error { background: #dc2626; }
+.toast.show { opacity: 1; transform: translateX(0); }
+
 @media print {
-  .iup-overlay { position:static; background:none; padding:0; display:block !important; }
-  .iup-modal { box-shadow:none; max-width:none; background:none; }
-  .iup-close-btn, .iup-modal-actions, .sidebar, .topbar, .content, .show-topbar, .breadcrumb { display:none !important; }
-  .iup-document { margin:0; padding:16px; }
+  @page { margin: 1.5cm; }
+
+  /* Скрываем всё на странице */
+  body > * { display: none !important; }
+
+  /* Показываем только содержимое ИУП */
+  #iupModal,
+  #iupModal * { display: revert !important; }
+
+  /* Убираем оверлей-фон и фиксированное позиционирование */
+  #iupModal {
+    position: static !important;
+    background: none !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  /* Убираем тень и скругления у самого бокса */
+  .iup-modal-box, .iup-document-wrap {
+    box-shadow: none !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+  }
+
+  /* Скрываем кнопки внутри ИУП */
+  .iup-close-btn,
+  .iup-modal-actions,
+  .iup-modal-footer { display: none !important; }
 }
 
 /* ===== PAGE LAYOUT ===== */

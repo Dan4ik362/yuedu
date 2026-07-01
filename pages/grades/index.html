@@ -178,29 +178,19 @@
           </div>
         </div>
 
-        <!-- Disciplines table -->
+        <!-- Disciplines -->
         <div class="modal-subheader">
           <span>Дисциплины</span>
           <button class="btn-add-row" onclick="addDiscRow()"><i data-lucide="plus" style="width:12px;height:12px;margin-right:4px"></i>Добавить строку</button>
         </div>
-        <div class="disc-table-wrap">
-          <table class="disc-table">
-            <thead><tr><th>НАЗВАНИЕ ПРЕДМЕТА</th><th>КРЕДИТЫ</th><th>ПРЕПОДАВАТЕЛЬ</th><th></th></tr></thead>
-            <tbody id="discBody"></tbody>
-          </table>
-        </div>
+        <div class="disc-cards-wrap" id="discBody"></div>
 
-        <!-- Practice table -->
+        <!-- Practice -->
         <div class="modal-subheader" style="margin-top:18px">
           <span>Практика</span>
           <button class="btn-add-row" onclick="addPracticeRow()"><i data-lucide="plus" style="width:12px;height:12px;margin-right:4px"></i>Добавить строку</button>
         </div>
-        <div class="disc-table-wrap">
-          <table class="disc-table">
-            <thead><tr><th>НАЗВАНИЕ ПРАКТИКИ</th><th>КРЕДИТЫ</th><th>ПРЕПОДАВАТЕЛЬ</th><th></th></tr></thead>
-            <tbody id="practiceBody"></tbody>
-          </table>
-        </div>
+        <div class="disc-cards-wrap" id="practiceBody"></div>
       </div>
       <div class="modal-footer">
         <button class="btn-outline" onclick="closeAddModal()">Отмена</button>
